@@ -1,2 +1,2 @@
-https://murmuring-shore-5000.herokuapp.com/ 
-https://git.heroku.com/fathomless-earth-3209.git
+ 
+https://serene-ocean-1756.herokuapp.com/ | https://git.heroku.com/serene-ocean-1756.git
