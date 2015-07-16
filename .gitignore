@@ -69,3 +69,7 @@ target/
 __pycache__/
 local_settings.py
 
+atusact_2014/
+atusresp_2014/
+atusrost_2014/
+
