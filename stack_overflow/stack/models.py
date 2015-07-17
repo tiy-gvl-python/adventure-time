@@ -27,8 +27,10 @@ class Tag(models.Model):
 
 
 class Count(models.Model):
-    pass
-
+    question = models.ForeignKey(Question, null=True)
+    answer = models.ForeignKey(Answers, null=True)
+    tag = models.ForeignKey(Tag, null=True)
+    count = models.IntegerField()
 
 
 class Vote(models.Model):
@@ -46,6 +48,7 @@ class Vote(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
+    email = models.EmailField()
     points = models.IntegerField(default=0)
 
     def __str__(self):

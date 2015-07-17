@@ -8,7 +8,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['points']
+        fields = ['email']
 
 
 # class ProfileEditForm(forms.ModelForm):
