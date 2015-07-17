@@ -11,8 +11,9 @@ class ProfileForm(forms.ModelForm):
         fields = ['points']
 
 
-class ProfileEditForm(forms.ModelForm):
+# class ProfileEditForm(forms.ModelForm):
 
-    class Meta:
-        model = Profile
-        fields = ['customer', 'staff', 'owner']
+   # class Meta:
+       # model = Profile
+
+        # fields = ['customer', 'staff', 'owner']

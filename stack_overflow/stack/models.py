@@ -10,6 +10,7 @@ class Question(models.Model):
     slug = models.SlugField()
     score = models.IntegerField()
     tags = models.ManyToManyField('Tag')
+    answers = models.ManyToManyField('Answers')
 
     def __str__(self):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
@@ -17,12 +18,17 @@ class Question(models.Model):
 class Answers(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
-    score = models.IntegerField()
+    score = models.IntegerField(default=0)
 
 
 
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
+
+
+class Count(models.Model):
+    pass
+
 
 
 class Vote(models.Model):
@@ -42,3 +48,5 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     points = models.IntegerField(default=0)
 
+    def __str__(self):
+        return 'username: {}\npoints: {}'.format(self.user, self.profile)
