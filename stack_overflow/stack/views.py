@@ -3,12 +3,17 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import ListView, DetailView
+from .models import Profile,Question, Tag, Count, Vote, Answers
+from django.core.urlresolvers import reverse_lazy, reverse
 
 # Create your views here.
 
 
 def home(request):
-    return HttpResponse()
+    # needs to show top questions
+    return HttpResponse('This is the Homepage space')
+
 
 def user_registration(request):
     if request.POST:
@@ -40,3 +45,8 @@ def permission_denied(requests):
     return render_to_response("stack/permission_denied.html",
                               context_instance=RequestContext(requests))
 
+class ListOfUsers(ListView):
+    model = Profile
+
+class IndivProfile(DetailView):
+    pass

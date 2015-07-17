@@ -26,6 +26,7 @@ class Answers(models.Model):
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
     timestamp = models.TimeField(auto_now_add=True)
+    score = models.IntegerField(default=0)
 
 
 class Count(models.Model):
@@ -55,6 +56,7 @@ class Profile(models.Model):
     email = models.EmailField()
     points = models.IntegerField(default=0)
     timestamp = models.TimeField(auto_now_add=True)
+    administrator = models.BooleanField(default=False)
 
     def __str__(self):
         return 'username: {}\npoints: {}'.format(self.user, self.profile)

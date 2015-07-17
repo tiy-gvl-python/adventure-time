@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'register/$', user_registration, name='register'),
     url(r'^login/', login, name='Login'),
     url(r'^logout/', logout, {'next_page': '/'}, name='Logout'),
+    url()
 
 ]
