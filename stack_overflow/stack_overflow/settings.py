@@ -26,6 +26,7 @@ SECRET_KEY = '6&(lp(et+7tr@p^n^h2d5tt47fow%%(2g+*vm#+a%th_j-vrcy'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_PROFILE_MODULE = "stack.Profile"
 
 
 # Application definition

@@ -10,7 +10,8 @@ class Question(models.Model):
     slug = models.SlugField()
     score = models.IntegerField()
     tags = models.ManyToManyField('Tag')
-    answers = models.ManyToManyField('Answers')
+    answers = models.ManyToManyField('Answers', through='Count')
+    timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
@@ -19,23 +20,26 @@ class Answers(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
     score = models.IntegerField(default=0)
-
+    timestamp = models.TimeField(auto_now_add=True)
 
 
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
+    timestamp = models.TimeField(auto_now_add=True)
 
 
 class Count(models.Model):
-    question = models.ForeignKey(Question, null=True)
-    answer = models.ForeignKey(Answers, null=True)
-    tag = models.ForeignKey(Tag, null=True)
+    question = models.ForeignKey(Question)
+    answer = models.ForeignKey(Answers)
     count = models.IntegerField()
 
+    def __str__(self):
+        return 'Count: {}'.format(self.count)
 
 class Vote(models.Model):
     upvote = models.BooleanField()
     downvote = models.BooleanField()
+    timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         if self.upvote == True:
@@ -50,6 +54,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     email = models.EmailField()
     points = models.IntegerField(default=0)
+    timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return 'username: {}\npoints: {}'.format(self.user, self.profile)
