@@ -1,6 +1,6 @@
 from django.db import models
 
-class Respondent(models.Model):
+"""class Respondent(models.Model):
     case_id = models.IntegerField()  # TUCASEID
     age = models.IntegerField()  # TEAGE
     sex = models.IntegerField()  # TEAGE
@@ -36,4 +36,4 @@ class Activity(models.Model):
 class Demographic(models.Model):                # This way we can go through any number of demographic data
     respondent = models.ForeignKey(Respondent)  # Either we do this or we store it all in JSON
     code = models.CharField(max_length=20)
-    value = models.IntegerField()
+    value = models.IntegerField()"""
