@@ -16,18 +16,26 @@ class Question(models.Model):
     def __str__(self):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
 
+    class meta:
+        oreder = ['-score']
+
+
 class Answers(models.Model):
     user = models.ForeignKey(User)
     text = models.TextField()
     score = models.IntegerField(default=0)
     timestamp = models.TimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-score']
 
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
     timestamp = models.TimeField(auto_now_add=True)
     score = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ['-score']
 
 class Count(models.Model):
     question = models.ForeignKey(Question)
@@ -59,4 +67,7 @@ class Profile(models.Model):
     administrator = models.BooleanField(default=False)
 
     def __str__(self):
-        return 'username: {}\npoints: {}'.format(self.user, self.profile)
+        return 'username: {}\npoints: {}'.format(self.user, self.points)
+
+    class Meta:
+        ordering = ['-points']

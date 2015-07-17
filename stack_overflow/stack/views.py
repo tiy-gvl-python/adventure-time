@@ -4,7 +4,7 @@ from django.template import RequestContext
 from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView
-from .models import Profile,Question, Tag, Count, Vote, Answers
+from .models import Profile, Question, Tag, Count, Vote, Answers
 from django.core.urlresolvers import reverse_lazy, reverse
 
 # Create your views here.
@@ -48,5 +48,5 @@ def permission_denied(requests):
 class ListOfUsers(ListView):
     model = Profile
 
-class IndivProfile(DetailView):
-    pass
+class ListOfQuestions(ListView):
+    model = Question
