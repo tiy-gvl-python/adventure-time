@@ -68,3 +68,7 @@ target/
 *.pyc
 __pycache__/
 
+atusact_2014/
+atusresp_2014/
+atusrost_2014/
+
