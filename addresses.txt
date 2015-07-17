@@ -1,2 +1,1 @@
-https://calm-savannah-5295.herokuapp.com/ | https://git.heroku.com/calm-savannah-5295.git 
-
+https://stack-clone-lance.herokuapp.com/ | https://git.heroku.com/stack-clone-lance.git
