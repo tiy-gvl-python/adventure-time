@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib.auth.views import login, logout
 from django.views.generic import CreateView
-from .views import user_registration, home, ListOfUsers, user_profile
+from .views import user_registration, home, ListOfUsers, user_profile, ListOfQuestions
 
 urlpatterns = [
 
@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^logout/', logout, {'next_page': '/'}, name='Logout'),
     url(r'^users/', ListOfUsers.as_view(), name='ListOfUsers'),
     url(r'^user/(?P<user_id>\d+)/$', user_profile, name='Profile'),
+    url(r'questions/$', ListOfQuestions.as_view(), name='QuestionList')
 
 ]

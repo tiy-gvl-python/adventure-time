@@ -11,9 +11,10 @@
 
 {% block body %}
 
-    <h1>Checkout Our Users</h1>
-{% for profile in object_list %}
-    <div>{{ profile.user.username }} {{profile.points}}
+    <h1>Think Your Question Has Already Been Asked?</h1>
+    <h1>Look Below at Our List of Questions</h1>
+{% for question in object_list %}
+    <div>{{ question.title }} {{ question.score }}
 
     {% endfor %}
 

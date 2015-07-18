@@ -1,22 +1,23 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from autoslug import AutoSlugField
 # Create your models here.
 
 class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=30)
     text = models.TextField()
-    slug = models.SlugField()
-    score = models.IntegerField()
-    tags = models.ManyToManyField('Tag')
+    slug = AutoSlugField(populate_from=lambda instance: instance.title,
+                         slugify=lambda value: value.replace(' ', '-'))
+    score = models.IntegerField(default=0)
+    tags = models.ManyToManyField('Tag', null=True)
     answers = models.ManyToManyField('Answers', through='Count')
     timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
 
-    class meta:
+    class Meta:
         ordering = ['-score']
 
 
@@ -36,6 +37,9 @@ class Tag(models.Model):
 
     class Meta:
         ordering = ['-score']
+
+    def __str__(self):
+        return '{}'.format(self.tag)
 
 class Count(models.Model):
     question = models.ForeignKey(Question)
