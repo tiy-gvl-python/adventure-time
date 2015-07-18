@@ -13,7 +13,7 @@ class Question(models.Model):
     timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
+        return 'User:hg {}\nTitle: {}'.format(self.user.username, self.title)
 
     class Meta:
         ordering = ['-score']
@@ -30,7 +30,7 @@ class Answers(models.Model):
         ordering = ['-score']
 
     def __str__(self):
-        return '{}'.format(self.user)
+        return '{}'.format(self.question.title)
 
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word

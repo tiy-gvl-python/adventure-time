@@ -8,6 +8,7 @@
 
 <h1>Stackoverflow Clone</h1>
     <a href="{% url 'stack:home' %}" >Home</a><br></br>
+    <a href="{% url 'stack:AskQuestion' %}">Click here to ask a question</a>
 {% if user.id %}
 
     <h3>Welcome {{ user.username }}</h3><br/>

@@ -57,9 +57,9 @@ def user_profile(request, user_id):
         return HttpResponseNotFound('<h1>No Page Here</h1>')
     if Question.objects.filter(pk=user_id):
         questions = Question.objects.filter(pk=user_id)
-        context = {"profile": profile, 'user': profile.user, 'questions': questions}
+        context = {"profile": profile, 'questions': questions}
     else:
-        context = {"profile": profile, 'user': profile.user}
+        context = {"profile": profile}
     context['questions'] = Question.objects.filter(user=profile.user)
     return render_to_response("stack/user-profile.html",
                               context, context_instance=RequestContext(request))
@@ -68,13 +68,21 @@ def user_profile(request, user_id):
 class ListOfQuestions(ListView):
     model = Question
 
-class QuestionPage(DetailView):
-    model = Question
-    
-    def get_context_data(self, **kwargs):
-        context = super(QuestionPage, self).get_context_data()
-        context['answers'] = Answers.objects.filter(question=2)
-        return context
+
+def question_page(request, question_id):
+    try:
+        ques = Question.objects.filter(pk=question_id)
+        if Answers.objects.filter(pk=question_id):
+            answer = Answers.objects.filter(pk=question_id)
+            context = {'question': ques, 'answer': answer}
+        else:
+            context = {'question': ques}
+    except Question.DoesNotExist:
+        return HttpResponse('Not Found!')
+    return render_to_response('stack/question_detail.html',
+                              context,
+                              context_instance=RequestContext(request))
+
 
 class AskQuestion(CreateView):
     model = Question

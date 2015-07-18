@@ -9,7 +9,7 @@
 {% for que in top_questions %}
     <div>
         {% csrf_token%}
-       <a href="{% url 'stack:question_page' que.pk %}"> {{que.title}}</a>
+       <a href="{% url 'stack:question_page'  que.pk %}"> {{que.title}}</a>
 
     </div>
 
