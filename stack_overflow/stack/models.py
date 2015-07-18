@@ -74,3 +74,10 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ['-points']
+
+
+class Click(models.Model):
+    question = models.ForeignKey(Question, null=True)
+    answer = models.ForeignKey(Answers, null=True)
+    profile = models.ForeignKey(Profile, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)

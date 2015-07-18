@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
+<a>
 
 <h1>Stackoverflow Clone</h1>
+    <a href="{% url 'stack:home' %}" >Home</a>
 {% if user.id %}
 
-    <h1>Welcome {{ user.username }}</h1><br/>
+    <h3>Welcome {{ user.username }}</h3><br/>
     <a href="{% url 'stack:Logout' %}">Logout</a><br/>
+    {% csrf_token %}
 {% else %}
     <a href="{% url 'stack:Login' %}">Login</a><br/>
     <a href="{% url 'stack:register' %}">Sign up</a><br/><br/>

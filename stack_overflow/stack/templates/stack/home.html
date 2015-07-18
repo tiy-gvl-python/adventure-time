@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <a href="{% url 'stack:Profile' user.id %}">Your Profile</a>
+
+<h2>Top Rated Questions</h2>
+
+{% for que in top_questions %}
+    <div>
+        {% csrf_token%}
+       <a href="{% url 'stack:question_page' que.pk %}"> {{que.title}}</a>
+
+    </div>
+
+
+
+{% endfor %}
+
+{% endblock %}

@@ -14,14 +14,12 @@
     <h1>Think Your Question Has Already Been Asked?</h1>
     <h1>Look Below at Our List of Questions</h1>
 {% for question in object_list %}
-    <div>{{ question.title }} {{ question.score }}
-
-    {% endfor %}
-
-
+    <div><a href="{% url 'stack:question_page' question.id %}" >{{ question.title }}</a> {{ question.score }}
+</div>
+{% endfor %}
 
 
-    </div>
+
 
 {% endblock %}
 </body>

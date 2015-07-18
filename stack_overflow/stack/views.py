@@ -11,8 +11,9 @@ from django.core.urlresolvers import reverse_lazy, reverse
 
 
 def home(request):
-    # needs to show top questions
-    return HttpResponse('This is the Homepage space')
+    print(request.user.id)
+    top_questions = Question.objects.all()[:50]
+    return render(request, 'stack/home.html', {'top_questions': top_questions})
 
 
 def user_registration(request):
