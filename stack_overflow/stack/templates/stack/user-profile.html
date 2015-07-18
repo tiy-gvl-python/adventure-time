@@ -2,9 +2,13 @@
 
 {% block body %}
 
+<h3>Your Points:</h3><p>{{ profile.points }}</p>
+
+<h2>List of Questions you've asked</h2>
+{% for question in object_list %}
+    <div>{{ question.title }}: {{ question.score }}
 
 
-
-
-
+    </div>
+{% endfor %}
 {% endblock %}

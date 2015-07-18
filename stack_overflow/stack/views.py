@@ -53,7 +53,11 @@ def user_profile(request, user_id):
         profile = Profile.objects.get(pk=user_id)
     except Profile.DoesNotExist:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
-    context = {"profile": profile, 'user': profile.user}
+    if Question.objects.filter(pk=user_id):
+        questions = Question.objects.filter(pk=user_id)
+        context = {"profile": profile, 'user': profile.user, 'questions': questions}
+    else:
+        context = {"profile": profile, 'user': profile.user}
     return render_to_response("stack/user-profile.html",
                               context, context_instance=RequestContext(request))
 
