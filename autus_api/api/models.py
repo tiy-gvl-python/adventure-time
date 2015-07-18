@@ -1,17 +1,19 @@
 from django.db import models
+#  from jsonfield import JSONField
 
-"""class Respondent(models.Model):
-    case_id = models.IntegerField()  # TUCASEID
+class Respondent(models.Model):
+    case_id = models.BigIntegerField()  # TUCASEID
     age = models.IntegerField()  # TEAGE
-    sex = models.IntegerField()  # TEAGE
-    weight = models.IntegerField()  # TUFINLWGT
-    hours_worked_per_week = models.IntegerField()  # TEHRUSLT
+    sex = models.IntegerField()  # TESEX
+    weight = models.FloatField()  # TUFINLWGT
+    hours_worked_per_week = models.BigIntegerField()  # TEHRUSLT
+    #  json = JSONField()
             #####----xor----####
-    labor_status = models.IntegerField()  # TELFS
+    """labor_status = models.IntegerField()  # TELFS
     labor_type = models.IntegerField()  # TRDPFTPT
     labor_partner = models.IntegerField()  # TESPEMPNOT
     labor_type_partner = models.IntegerField  # TRSPFTPT
-    mulitple_jobs = models.IntegerField()  # TEMJOT
+    multiple_jobs = models.IntegerField()  # TEMJOT
     enrolled = models.IntegerField()  # TESCHENR
     _where = models.IntegerField()  # TESCHLVL
     household_children = models.IntegerField()  # TRCHILDNUM
@@ -21,7 +23,7 @@ from django.db import models
     eldercare = models.IntegerField()  # TRTEC
     secondary_childcare = models.IntegerField()  # TRTHH
     youngest_child = models.IntegerField()  # TRYHHCHILD
-    diary_day = models.IntegerField()  # TUDIARYDAY
+    diary_day = models.IntegerField()  # TUDIARYDAY"""
 
     # this is dumb
 
@@ -36,4 +38,4 @@ class Activity(models.Model):
 class Demographic(models.Model):                # This way we can go through any number of demographic data
     respondent = models.ForeignKey(Respondent)  # Either we do this or we store it all in JSON
     code = models.CharField(max_length=20)
-    value = models.IntegerField()"""
+    value = models.FloatField()

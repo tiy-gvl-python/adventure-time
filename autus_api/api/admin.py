@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+
+from api.models import Respondent, Activity, Demographic
+
+
+admin.site.register(Respondent)
+admin.site.register(Activity)
+admin.site.register(Demographic)
