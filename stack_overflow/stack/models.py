@@ -7,10 +7,9 @@ class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=30)
     text = models.TextField()
-    slug = AutoSlugField(populate_from=lambda instance: instance.title,
-                         slugify=lambda value: value.replace(' ', '-'))
+    slug = AutoSlugField(populate_from='title')
     score = models.IntegerField(default=0)
-    tags = models.ManyToManyField('Tag', null=True)
+    tags = models.ManyToManyField('Tag')
     answers = models.ManyToManyField('Answers', through='Count')
     timestamp = models.TimeField(auto_now_add=True)
 
@@ -22,7 +21,6 @@ class Question(models.Model):
 
 
 class Answers(models.Model):
-    user = models.ForeignKey(User)
     text = models.TextField()
     score = models.IntegerField(default=0)
     timestamp = models.TimeField(auto_now_add=True)

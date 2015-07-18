@@ -65,6 +65,11 @@ def user_profile(request, user_id):
 class ListOfQuestions(ListView):
     model = Question
 
+class QuestionPage(DetailView):
+    model = Question
+    slug_field = ['slug']
+    print(slug_field)
+
 class AskQuestion(CreateView):
     model = Question
 
