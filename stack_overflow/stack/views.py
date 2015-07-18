@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404, HttpResponseNotFound
+from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
-from .forms import ProfileForm
+from .forms import ProfileForm, AnswerForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
@@ -95,3 +95,24 @@ class AskQuestion(CreateView):
         return super(AskQuestion, self).form_valid(form)
 
 
+def answer_question(request, question_id, user_id):
+    if request.POST:
+        ok = True
+        answer_form = AnswerForm(request.POST)
+        if not answer_form.is_valid():
+            ok = False
+        if ok:
+            print('answer form at second if')
+            try:
+                answer = answer_form.save(commit=False)
+                answer.question = Question.objects.filter(id=question_id)
+                answer.user = Profile.objects.filter(pk=user_id)
+                answer.save()
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            except:
+                return render_to_response('stack/answer_question.html',
+                                          {'answer_form': AnswerForm},
+                                          context_instance=RequestContext(request))
+    return render_to_response('stack/answer_question.html',
+                                          {'answer_form': AnswerForm},
+                                          context_instance=RequestContext(request))

@@ -13,7 +13,7 @@ class Question(models.Model):
     timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'User:hg {}\nTitle: {}'.format(self.user.username, self.title)
+        return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
 
     class Meta:
         ordering = ['-score']
@@ -66,7 +66,7 @@ class Vote(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, primary_key=True)
     email = models.EmailField()
     points = models.IntegerField(default=0)
     timestamp = models.TimeField(auto_now_add=True)

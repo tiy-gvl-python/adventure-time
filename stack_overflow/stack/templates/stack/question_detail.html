@@ -14,7 +14,7 @@
 {% endfor %}
 {% for obj in answer %}
     <div>Score: {{obj.score}} </br>User:
-        <a href="{% url 'stack:Profile' obj.user.user.id|add:'-1' %}">
+        <a href="{% url 'stack:Profile' obj.user.user.id %}">
         {{obj.user.user.username}}</a>
      <br> </br> {{obj.text}}</div><br></br>
 {% endfor %}
