@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^respondents/$', views.RespondentListView. as_view(), name='respondent_list'),
     url(r'^respondents/(?P<pk>\d+)/$', views.RespondentDetailView.as_view(), name='respondent_detail'),
+    url(r'^activity/(?P<pk>\d+)/$', views.ActivityDetailView.as_view(), name='activity_detail'),
+
 ]
