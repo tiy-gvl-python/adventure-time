@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 
 <!DOCTYPE html>
-<html>
+<br>
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
  </head>
-<body>
+<br>
 
 {% block body %}
 
-    <h1></h1>
-{% for answer in object_list %}
-    <div>{{ answer.user }} {{ answer.text }} {{ answer.score }}
-    <form method="POST" action="{% url 'restaurant_app:item_detail' item.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-</form>
-    {% endfor %}
-</div>
+    <h1>{{object.text}}</h1>
+{% for obj in answers %}
+    <div>Score: {{obj.score}} </br>User: {{obj.user.user.username}}
+     <br> </br> {{obj.text}}</div><br></br>
+{% endfor %}
+
+
+    </div>
 
 {% endblock %}
 </body>

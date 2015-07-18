@@ -67,8 +67,11 @@ class ListOfQuestions(ListView):
 
 class QuestionPage(DetailView):
     model = Question
-    slug_field = ['slug']
-    print(slug_field)
+    
+    def get_context_data(self, **kwargs):
+        context = super(QuestionPage, self).get_context_data()
+        context['answers'] = Answers.objects.filter(question=2)
+        return context
 
 class AskQuestion(CreateView):
     model = Question

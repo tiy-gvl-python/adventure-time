@@ -10,7 +10,6 @@ class Question(models.Model):
     slug = AutoSlugField(populate_from='title')
     score = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag')
-    answers = models.ManyToManyField('Answers', through='Count')
     timestamp = models.TimeField(auto_now_add=True)
 
     def __str__(self):
@@ -21,6 +20,8 @@ class Question(models.Model):
 
 
 class Answers(models.Model):
+    user = models.ForeignKey('Profile')
+    question = models.ForeignKey(Question)
     text = models.TextField()
     score = models.IntegerField(default=0)
     timestamp = models.TimeField(auto_now_add=True)

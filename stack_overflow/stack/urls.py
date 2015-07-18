@@ -4,6 +4,9 @@ from django.views.generic import CreateView
 from .views import user_registration, home, ListOfUsers, user_profile, ListOfQuestions, permission_denied, \
     QuestionPage
 
+
+SLUG = '(?P<slug>[\w\d-]+)'
+
 urlpatterns = [
 
     url(r'^$', home, name='home'),
