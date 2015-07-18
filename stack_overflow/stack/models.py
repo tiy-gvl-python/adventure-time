@@ -17,7 +17,7 @@ class Question(models.Model):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
 
     class meta:
-        oreder = ['-score']
+        ordering = ['-score']
 
 
 class Answers(models.Model):

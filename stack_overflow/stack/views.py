@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from .forms import ProfileForm
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
 from django.core.urlresolvers import reverse_lazy, reverse
 
@@ -48,5 +48,19 @@ def permission_denied(requests):
 class ListOfUsers(ListView):
     model = Profile
 
+def user_profile(request, user_id):
+    try:
+        profile = Profile.objects.get(pk=user_id)
+    except Profile.DoesNotExist:
+        return HttpResponseNotFound('<h1>No Page Here</h1>')
+    context = {"profile": profile, 'user': profile.user}
+    return render_to_response("stack/user-profile.html",
+                              context, context_instance=RequestContext(request))
+
+
 class ListOfQuestions(ListView):
     model = Question
+
+class AskQuestion(CreateView):
+    model = Question
+
