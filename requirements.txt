@@ -8,3 +8,6 @@ psycopg2
 static
 wsgiref
 djangorestframework
+markdown
+django-filter
+numpy
