@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{% if user.id %}
     <a href="{% url 'stack:Profile' user.id %}">Your Profile</a>
-
+{% endif %}
 <h2>Top Rated Questions</h2>
 
 {% for que in top_questions %}

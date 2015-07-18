@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
@@ -59,6 +60,7 @@ def user_profile(request, user_id):
         context = {"profile": profile, 'user': profile.user, 'questions': questions}
     else:
         context = {"profile": profile, 'user': profile.user}
+    context['questions'] = Question.objects.filter(user=profile.user)
     return render_to_response("stack/user-profile.html",
                               context, context_instance=RequestContext(request))
 
@@ -76,4 +78,12 @@ class QuestionPage(DetailView):
 
 class AskQuestion(CreateView):
     model = Question
+    fields = ['title', 'text', 'tags']
+    success_url = reverse_lazy('stack:home')
+
+    def form_valid(self, form):
+        current_user = User.objects.get(pk=self.request.user.id)
+        form.instance.user = current_user
+        return super(AskQuestion, self).form_valid(form)
+
 

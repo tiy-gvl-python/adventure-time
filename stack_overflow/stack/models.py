@@ -29,6 +29,9 @@ class Answers(models.Model):
     class Meta:
         ordering = ['-score']
 
+    def __str__(self):
+        return '{}'.format(self.user)
+
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
     timestamp = models.TimeField(auto_now_add=True)

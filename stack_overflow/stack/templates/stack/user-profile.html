@@ -4,9 +4,10 @@
 
 <h3>Your Points:</h3><p>{{ profile.points }}</p>
 
-<h2>List of Questions you've asked</h2>
-{% for question in object_list %}
-    <div>{{ question.title }}: {{ question.score }}
+<h2>List of Questions asked by {{profile.user.username}}</h2>
+{% for question in questions %}
+    <div><a href="{% url 'stack:question_page' question.pk %}">{{ question.title}}</a>
+        Score:{{ question.score }}<br></br>
 
 
     </div>
