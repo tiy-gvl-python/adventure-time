@@ -7,6 +7,10 @@ class Respondent(models.Model):
     sex = models.IntegerField()  # TESEX
     weight = models.FloatField()  # TUFINLWGT
     hours_worked_per_week = models.BigIntegerField()  # TEHRUSLT
+
+    def __str__(self):
+        return str(self.case_id)
+
     #  json = JSONField()
             #####----xor----####
     """labor_status = models.IntegerField()  # TELFS
@@ -34,8 +38,13 @@ class Activity(models.Model):
     cat_3 = models.CharField(max_length=2)
     minutes = models.IntegerField()
 
+    def __str__(self):
+        return str(self.cat_1) + str(self.cat_2) + str(self.cat_3)
 
 class Demographic(models.Model):                # This way we can go through any number of demographic data
     respondent = models.ForeignKey(Respondent)  # Either we do this or we store it all in JSON
     code = models.CharField(max_length=20)
     value = models.FloatField()
+
+    def __str__(self):
+        return str(self.code)
