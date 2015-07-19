@@ -48,3 +48,4 @@ class Demographic(models.Model):                # This way we can go through any
 
     def __str__(self):
         return str(self.code)
+

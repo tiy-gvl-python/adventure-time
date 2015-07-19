@@ -26,6 +26,7 @@ class RespondentSerializer(serializers.ModelSerializer):
 
 
 class DemographicSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Demographic
 
@@ -34,7 +35,10 @@ class ActivitySerializer(serializers.ModelSerializer):
     filter = serializers.SerializerMethodField()
 
     def get_filter(self, obj):
+        respond ={}
         respondent = Respondent.objects.filter()
+
+        return respond
 
     class Meta:
         model = Activity
