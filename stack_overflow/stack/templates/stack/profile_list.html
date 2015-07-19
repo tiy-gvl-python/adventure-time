@@ -13,7 +13,7 @@
 
     <h1>Checkout Our Users</h1>
 {% for profile in object_list %}
-    <div>{{ profile.user.username }} {{profile.points}}
+    <div><a href="{% url 'stack:Profile' profile.pk %}">{{ profile.user.username }}</a> {{profile.score}}
 
     {% endfor %}
 

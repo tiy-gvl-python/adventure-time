@@ -4,7 +4,7 @@ from autoslug import AutoSlugField
 # Create your models here.
 
 class Question(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey('Profile')
     title = models.CharField(max_length=140)
     text = models.TextField()
     slug = AutoSlugField(populate_from='title')
@@ -14,7 +14,7 @@ class Question(models.Model):
     votes = models.ManyToManyField('Vote')
 
     def __str__(self):
-        return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
+        return 'User: {}\nTitle: {}'.format(self.user.user.username, self.title)
 
     @property
     def upvote_count(self):

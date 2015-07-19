@@ -14,7 +14,6 @@ from django.contrib import messages
 
 
 def home(request):
-    print(request.user.id)
     top_questions = Question.objects.all()[:50]
     return render(request, 'stack/home.html', {'top_questions': top_questions})
 
@@ -53,16 +52,17 @@ class ListOfUsers(ListView):
     model = Profile
 
 def user_profile(request, user_id):
+    current_user = Profile.objects.get(pk=user_id)
     try:
         profile = Profile.objects.get(pk=user_id)
     except Profile.DoesNotExist:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
-    if Question.objects.filter(pk=user_id):
-        questions = Question.objects.filter(pk=user_id)
+    if Question.objects.filter(user=current_user):
+        questions = Question.objects.filter(user=current_user)
         context = {"profile": profile, 'questions': questions}
     else:
         context = {"profile": profile}
-    context['questions'] = Question.objects.filter(user=profile.user)
+    context['questions'] = Question.objects.filter(user=current_user)
     return render_to_response("stack/user-profile.html",
                               context, context_instance=RequestContext(request))
 
@@ -92,7 +92,7 @@ class AskQuestion(CreateView):
     success_url = reverse_lazy('stack:home')
 
     def form_valid(self, form):
-        current_user = User.objects.get(pk=self.request.user.id)
+        current_user = Profile.objects.get(pk=self.request.user.id)
         form.instance.user = current_user
         return super(AskQuestion, self).form_valid(form)
 
@@ -158,6 +158,7 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
         profile = Profile.objects.get(pk=user_pk)
         model_type = model_type
         obj = ''
+        owner = ''
         if model_type == 'question':
             question = True
             obj = Question.objects.get(pk=votee_pk)
@@ -168,14 +169,23 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
         if vote_type == 'downvote':
             downvote = True
             upvote = False
-            obj.score -=5
+            owner = Profile.objects.get(pk=obj.user.pk)
+            obj.score -= 5
             obj.save()
             if profile.score > 0:
                 profile.score -= 1
                 profile.save()
+            if owner.score > 5:
+                owner.score -= 5
+                owner.save()
+
         else:
+            owner = Profile.objects.get(pk=obj.user.pk)
+            owner.score += 10
+            print('It works here is the owners score:', owner.score)
             obj.score += 10
             obj.save()
+            owner.save()
         vote = Vote.objects.create(votee_pk=votee_pk,
                                    voter=profile,
                                    upvote=upvote,
