@@ -198,7 +198,6 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
             if owner.score > 5:
                 owner.score -= 5
                 owner.save()
-
         else:
             numset = '000000001'
             if profile.score < 25:
