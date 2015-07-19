@@ -9,10 +9,11 @@
 <br>
 
 {% block body %}
-    <h1>{{object.text}}</h1>
-
+    <h1>{{ question.title }}</h1>
+    <p>{{question.text}}</p>
+<h2>Answers are below</h2>
 {% for obj in answer %}
-    <div>Score: {{obj.score}} </br>User:
+    <div>Score: {{obj.score}} <br>Timestamp: {{obj.timestamp}}</br>User:
      {% if obj.user.user.pk %}   <a href="{% url 'stack:Profile' obj.user.user.pk %}">{% endif %}
    {{obj.user.user.username}}</a>
 
