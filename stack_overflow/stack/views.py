@@ -1,3 +1,5 @@
+import random
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
@@ -7,8 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.contrib import messages
-
+from django.utils.decorators import method_decorator
+from .custom_wrappers import can_answer_func, can_ask_func
 
 # Create your views here.
 
@@ -45,8 +47,14 @@ def user_registration(request):
 
 
 def permission_denied(requests):
-    return render_to_response("stack/permission_denied.html",
+    return render_to_response("stack/answer_denied.html",
                               context_instance=RequestContext(requests))
+
+
+def q_denied(requests):
+    return render_to_response("stack/question_denied.html",
+                              context_instance=RequestContext(requests))
+
 
 class ListOfUsers(ListView):
     model = Profile
@@ -99,7 +107,17 @@ class AskQuestion(CreateView):
         form.instance.user = current_user
         return super(AskQuestion, self).form_valid(form)
 
+    @method_decorator(user_passes_test(can_ask_func,
+                                       redirect_field_name='stack:Q_denied',
+                                       login_url='stack:Q_denied',
+                                       ))
+    def dispatch(self, *args, **kwargs):
+        print("user passed test", can_ask_func)
+        return super().dispatch(*args, **kwargs)
 
+
+@login_required(login_url='stack:Login')
+@user_passes_test(can_answer_func, login_url='stack:A_denied')
 def answer_question(request, question_id):
     if request.POST:
         user_id = request.user.id
@@ -182,9 +200,15 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
                 owner.save()
 
         else:
+            numset = '000000001'
+            if profile.score < 25:
+                numset = '010021'
+            rand = random.choice(numset)
             owner = Profile.objects.get(pk=obj.user.pk)
             owner.score += 10
             print('It works here is the owners score:', owner.score)
+            profile.score += int(rand)
+            profile.save()
             obj.score += 10
             obj.save()
             owner.save()
