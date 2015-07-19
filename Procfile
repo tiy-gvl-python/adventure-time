@@ -1,2 +1,2 @@
 #web: gunicorn autus_api.wsgi --log-file -
-web: cd autus_api; gunicorn autus_api.wsgi -w 1 --timeout 28
+web: cd autus_api; gunicorn autus_api.wsgi -w 1 --timeout 60
