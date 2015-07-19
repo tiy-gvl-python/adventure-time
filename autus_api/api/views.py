@@ -8,6 +8,49 @@ from rest_framework.response import Response
 from api.models import Respondent, Activity, Demographic
 
 
+class ResActSerializer(serializers.ModelSerializer):
+    activities = serializers.SerializerMethodField()
+    filt = serializers.SerializerMethodField()
+
+    def get_filt(self, obj):
+        return self._context['request'].QUERY_PARAMS
+
+    def get_activities(self, obj):
+
+        act_id = self._kwargs['context']['view'].kwargs['pk']
+        respondent = self._args[0]
+        act_obj = {}
+        minutes = []
+        act_obj['code'] = act_id
+        print("actid", act_id)
+        if len(act_id) == 2:
+            print("Two")
+            act_obj['codes'] = [act_id]
+            act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id)
+            print(act_list)
+        elif len(act_id) == 4:
+            print("Four")
+            act_obj['codes'] = [act_id[:2], act_id[2:]]
+            act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id[:2], cat_2=act_id[2:])
+            print(act_list)
+        elif len(act_id) == 6:
+            print("six")
+            act_obj['codes'] = [act_id[:2], act_id[2:4], act_id[4:]]
+            act_list = Activity.objects.filter(respondent__in=respondent , cat_1=act_id[:2], cat_2=act_id[2:4], cat_3=act_id[4:])
+            print(act_list)
+        for act in act_list:
+            minutes.append(act.minutes)
+        act_obj["average_minutes"] = np.mean(minutes)
+        act_obj["total_number_of_respondents"] = len(respondent)
+        print("Length o", len(act_obj))
+        print("activity", act_obj)
+        return act_obj
+
+    class Meta:
+        model = Respondent
+        fields = ['activities', 'filt']
+
+
 class RespondentSerializer(serializers.ModelSerializer):
     activities = serializers.SerializerMethodField()
 
@@ -32,10 +75,11 @@ class DemographicSerializer(serializers.ModelSerializer):
 
 class ActivitySerializer(serializers.ModelSerializer):
     filter = serializers.SerializerMethodField()
-
+    print('hello')
     def get_filter(self, obj):
+        respond = {}
         respondent = Respondent.objects.filter()
-
+        return respond
     class Meta:
         model = Activity
 
@@ -98,6 +142,56 @@ class ActivityDetailView(generics.GenericAPIView):
         return self.get_object(pk)
 
 
+class ActivitiesRes(generics.ListAPIView):
+    #print("Hey")
+    #queryset = Activity.objects.filter()
+    serializer_class = ResActSerializer
+    filter_backend = (filters.DjangoFilterBackend,)
+    filter_fields = {'sex': ['exact','lt', 'gt','lte', 'gte'], 'age': ['exact','lt', 'gt','lte', 'gte'],
+                     'hours_worked_per_week': ['exact','lt', 'gt','lte', 'gte' ]}
+    def get_queryset(self):
+        print("eh")
+        act_code = self.kwargs['pk']
+        print(act_code)
+        act_code_len = len(act_code)
+        if act_code_len == 2:
+            print("hey")
+            act_set = Activity.objects.filter(cat_1=act_code).values_list('respondent')
+            print(act_set)
+            print("Y")
+            list_of_ids = [id[0] for id in act_set]
+            return Respondent.objects.filter(pk__in=list_of_ids)
+        elif act_code_len == 4:
+            print("Ho")
+            act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4]).values_list('respondent')
+            print(act_set)
+            print("Y")
+            # return [Respondent.objects.get(id=id[0]) for id in act_set]
+            list_of_ids = [id[0] for id in act_set]
+            return Respondent.objects.filter(pk__in=list_of_ids)
+        elif act_code_len == 6:
+            print("hey")
+            act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:]).values_list('respondent')
+            print(act_set)
+            print("Y")
+            # return [Respondent.objects.get(id=id[0]) for id in act_set]
+            list_of_ids = [id[0] for id in act_set]
+            return Respondent.objects.filter(pk__in=list_of_ids)
+            # return Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:])
+        else:
+            raise Exception("We don't have that")
 
-class ActivitiesRes():
-    pass
+
+    """def list(self, request, *args, **kwargs):
+        print("Hey Yo LETS GO")
+        print(request.parsers)
+        data = request.parsers[0]
+        print("Hey")
+        #return super()
+        return Response(data=request.parsers)"""
+
+    def get(self, request, pk, format=None):
+        return self.get_object()
+    def get_object(self):
+        print("heyllo")
+        return Response()

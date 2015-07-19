@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^respondents/$', views.RespondentListView. as_view(), name='respondent_list'),
     url(r'^respondents/(?P<pk>\d+)/$', views.RespondentDetailView.as_view(), name='respondent_detail'),
     url(r'^activity/(?P<pk>\d+)/$', views.ActivityDetailView.as_view(), name='activity_detail'),
-    url(r'^activities/(?P<pk>\d+)/$', views.ActivityDetailView.as_view(), name='activities_res'),
+    url(r'^activities/(?P<pk>\d+)/$', views.ActivitiesRes.as_view(), name='activities_res'),
 
 ]
