@@ -7,7 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.forms.formsets import formset_factory
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -84,10 +85,9 @@ def question_page(request, question_id):
                               context,
                               context_instance=RequestContext(request))
 
-
 class AskQuestion(CreateView):
     model = Question
-    fields = ['title', 'text', 'tags']
+    fields = ['title', 'text',  'tags']
     success_url = reverse_lazy('stack:home')
 
     def form_valid(self, form):
@@ -130,4 +130,16 @@ def answer_question(request, question_id):
     return render_to_response('stack/answer_question.html',
                                           {'answer_form': AnswerForm},
                                           context_instance=RequestContext(request))
+
+class TagCreation(CreateView):
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy('stack:AskQuestion')
+    success_message = "Tag created succsefully"
+
+    def form_valid(self, form):
+        if Tag.objects.filter(tag=self.request.POST['tag']):
+            return HttpResponse("TAG ALREADY EXIST")
+        else:
+            return super(TagCreation, self).form_valid(form)
 

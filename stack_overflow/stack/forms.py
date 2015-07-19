@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
-from .models import Profile, Answers, Tag
+from .models import Profile, Answers, Tag, Question
 from django import forms
+from django.forms.models import inlineformset_factory
 
 
 
@@ -24,8 +25,6 @@ class TagForm(forms.ModelForm):
 
 
 
-    class Meta:
-        model = Question
 
 
 

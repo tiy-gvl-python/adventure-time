@@ -2,8 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth.views import login, logout
 from django.views.generic import CreateView
 from .views import user_registration, home, ListOfUsers, user_profile, ListOfQuestions, permission_denied, \
-    AskQuestion, question_page, answer_question
-
+    AskQuestion, question_page, answer_question, TagCreation
 
 SLUG = '(?P<slug>[\w\d-]+)'
 
@@ -20,4 +19,5 @@ urlpatterns = [
     url(r'^denied', permission_denied, name='denied'),
     url(r'^ask/$', AskQuestion.as_view(), name='AskQuestion'),
     url(r'^answer/(?P<question_id>\d+)/$', answer_question, name='answer_question'),
+    url(r'^tag/$', TagCreation.as_view(), name='TagCreation')
 ]
