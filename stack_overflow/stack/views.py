@@ -2,11 +2,12 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
-from .forms import ProfileForm, AnswerForm
+from .forms import ProfileForm, AnswerForm, TagForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.forms.formsets import formset_factory
 
 # Create your views here.
 

@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
+<h2>
+    Write and submit your answer below
+</h2>
     <form method="POST">
     {% csrf_token %}
     {{ answer_form.as_p }}
     <button type="submit">Submit Answer</button>
 
-
+    </form>
 {% endblock %}
 
-{% block two %}{% endblock %}

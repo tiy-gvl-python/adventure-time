@@ -25,10 +25,17 @@
 
     </div>
 
-{% if question.pk %}<a href="{% url 'stack:answer_question' question.pk %}" >Answer Question</a>
+
+{% if question.pk %}
+
+
+
+<a href="{% url 'stack:answer_question' question.pk %}" >Answer Question</a>
 {% endif %}
+
 
 {% endblock %}
 </body>
 
 </html>
+
