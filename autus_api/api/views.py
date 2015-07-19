@@ -83,3 +83,8 @@ class ActivityDetailView(generics.GenericAPIView):
 
     def get(self, request, pk, format=None):
         return self.get_object(pk)
+
+
+
+class ActivitiesRes():
+    pass
