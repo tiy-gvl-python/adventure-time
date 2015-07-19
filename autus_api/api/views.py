@@ -12,6 +12,8 @@ class ResActSerializer(serializers.ModelSerializer):
     activities = serializers.SerializerMethodField()
     filt = serializers.SerializerMethodField()
 
+    def restore_fields(self, data, files):
+        print("hey")
     def get_filt(self, obj):
         return self._context['request'].QUERY_PARAMS
 
@@ -192,8 +194,10 @@ class ActivitiesRes(generics.ListAPIView):
         #return super()
         return Response(data=request.parsers)"""
 
-    def get(self, request, pk, format=None):
-        return self.get_object()
-    def get_object(self):
-        print("heyllo")
-        return Response()
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        print(response)
+        print(len(response.data))
+        response.data = response.data[0]
+        print(len(response.data))
+        return response
