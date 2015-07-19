@@ -9,9 +9,8 @@
 <br>
 
 {% block body %}
-{% for object in question%}
     <h1>{{object.text}}</h1>
-{% endfor %}
+
 {% for obj in answer %}
     <div>Score: {{obj.score}} </br>User:
      {% if obj.user.user.pk %}   <a href="{% url 'stack:Profile' obj.user.user.pk %}">{% endif %}
@@ -21,7 +20,12 @@
 {% endfor %}
 
 
+
+
     </div>
+
+{% if question.pk %}<a href="{% url 'stack:answer_question' question.pk %}" >Answer Question</a>
+{% endif %}
 
 {% endblock %}
 </body>

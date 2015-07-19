@@ -71,7 +71,7 @@ class ListOfQuestions(ListView):
 
 def question_page(request, question_id):
     try:
-        ques = Question.objects.filter(pk=question_id)
+        ques = Question.objects.get(pk=question_id)
         if Answers.objects.filter(question=ques):
             answer = Answers.objects.filter(question=ques)
             context = {'question': ques, 'answer': answer}
@@ -101,7 +101,7 @@ def answer_question(request, question_id):
        # user_id = User.objects.get(id=user_id)
         print('got user_id')
         print(user_id)
-        question = request.question
+        question = Question.objects.get(pk=question_id)
         print('Question: {}'.format(question))
         usr = request.user
         ok = True
@@ -130,27 +130,3 @@ def answer_question(request, question_id):
                                           {'answer_form': AnswerForm},
                                           context_instance=RequestContext(request))
 
-"""
-
-def user_registration(request):
-    if request.POST:
-        username = request.POST['username']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        user_form = UserCreationForm({
-            'username': username,
-            'password1': password1,
-            'password2': password2
-        })
-        try:
-            user_form.save(commit=True)
-            return HttpResponseRedirect("/")
-        except ValueError:
-            return render_to_response("registration/create_user.html",
-                                      {'form': user_form},
-                                      context_instance=RequestContext(request))
-
-    return render_to_response("registration/create_user.html",
-                              {'form': UserCreationForm()},
-                              context_instance=RequestContext(request))
-                              """
