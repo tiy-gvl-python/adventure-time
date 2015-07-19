@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib.auth.views import login, logout
 from django.views.generic import CreateView
 from .views import user_registration, home, ListOfUsers, user_profile, ListOfQuestions, permission_denied, \
-    AskQuestion, question_page, answer_question, TagCreation
+    AskQuestion, question_page, answer_question, TagCreation, vote_create
 
 SLUG = '(?P<slug>[\w\d-]+)'
 
@@ -19,5 +19,7 @@ urlpatterns = [
     url(r'^denied', permission_denied, name='denied'),
     url(r'^ask/$', AskQuestion.as_view(), name='AskQuestion'),
     url(r'^answer/(?P<question_id>\d+)/$', answer_question, name='answer_question'),
-    url(r'^tag/$', TagCreation.as_view(), name='TagCreation')
+    url(r'^tag/$', TagCreation.as_view(), name='TagCreation'),
+    url(r'^vote/(?P<votee_pk>\d+)/(?P<model_type>answer|question+)/(?P<vote_type>upvote|downvote+)/$',
+        vote_create, name='vote_create'),
 ]

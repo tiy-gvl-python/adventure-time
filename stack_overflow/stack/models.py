@@ -97,12 +97,12 @@ class Vote(models.Model):                               # I plan on handling thi
 class Profile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
     email = models.EmailField()
-    points = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     administrator = models.BooleanField(default=False)
 
     def __str__(self):
-        return 'username: {}\npoints: {}'.format(self.user, self.points)
+        return 'username: {}\npoints: {}'.format(self.user, self.score)
 
     @property
     def upvote_count(self):
@@ -115,7 +115,7 @@ class Profile(models.Model):
         return downvotes.count()
 
     class Meta:
-        ordering = ['-points']
+        ordering = ['-score']
 
 
 class Click(models.Model):

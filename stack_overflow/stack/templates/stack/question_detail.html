@@ -11,6 +11,14 @@
 {% block body %}
     <h1>{{ question.title }}</h1>
     <p>{{question.text}}</p>
+<form action="{% url 'stack:vote_create' question.pk 'question' 'upvote' %}" method="POST">
+                    {% csrf_token %}
+                    <input id="submit" type="submit" value="upvote" />
+                </form>
+<form action="{% url 'stack:vote_create' question.pk 'question' 'downvote' %}" method="POST">
+                {% csrf_token %}
+                <input id="submit" type="submit" value="downvote">
+</form>
 <h2>Answers are below</h2>
 {% for obj in answer %}
     <div>Score: {{obj.score}} <br>Timestamp: {{obj.timestamp}}</br>User:
