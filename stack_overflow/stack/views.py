@@ -72,8 +72,8 @@ class ListOfQuestions(ListView):
 def question_page(request, question_id):
     try:
         ques = Question.objects.filter(pk=question_id)
-        if Answers.objects.filter(pk=question_id):
-            answer = Answers.objects.filter(pk=question_id)
+        if Answers.objects.filter(question=ques):
+            answer = Answers.objects.filter(question=ques)
             context = {'question': ques, 'answer': answer}
         else:
             context = {'question': ques}
@@ -95,8 +95,15 @@ class AskQuestion(CreateView):
         return super(AskQuestion, self).form_valid(form)
 
 
-def answer_question(request, question_id, user_id):
+def answer_question(request, question_id):
     if request.POST:
+        user_id = request.user.id
+       # user_id = User.objects.get(id=user_id)
+        print('got user_id')
+        print(user_id)
+        question = request.question
+        print('Question: {}'.format(question))
+        usr = request.user
         ok = True
         answer_form = AnswerForm(request.POST)
         if not answer_form.is_valid():
@@ -104,15 +111,46 @@ def answer_question(request, question_id, user_id):
         if ok:
             print('answer form at second if')
             try:
+                print('answer_form at try')
                 answer = answer_form.save(commit=False)
-                answer.question = Question.objects.filter(id=question_id)
-                answer.user = Profile.objects.filter(pk=user_id)
+                answer.user = usr.profile
+                answer.question = question
                 answer.save()
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                print('answer_form made it to end of try')
+                return redirect('stack:question_page', question_id)
             except:
+                answer.user = usr.profile
+                answer.question = question
+                answer.save()
+                print('answer_form hit except')
                 return render_to_response('stack/answer_question.html',
                                           {'answer_form': AnswerForm},
                                           context_instance=RequestContext(request))
     return render_to_response('stack/answer_question.html',
                                           {'answer_form': AnswerForm},
                                           context_instance=RequestContext(request))
+
+"""
+
+def user_registration(request):
+    if request.POST:
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        user_form = UserCreationForm({
+            'username': username,
+            'password1': password1,
+            'password2': password2
+        })
+        try:
+            user_form.save(commit=True)
+            return HttpResponseRedirect("/")
+        except ValueError:
+            return render_to_response("registration/create_user.html",
+                                      {'form': user_form},
+                                      context_instance=RequestContext(request))
+
+    return render_to_response("registration/create_user.html",
+                              {'form': UserCreationForm()},
+                              context_instance=RequestContext(request))
+                              """
