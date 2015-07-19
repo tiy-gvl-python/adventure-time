@@ -18,12 +18,12 @@ class Question(models.Model):
 
     @property
     def upvote_count(self):
-        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(upvote=True)
+        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(is_question=True).filter(upvote=True)
         return upvotes.count()
 
     @property
     def downvote_count(self):
-        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(downvote=True)
+        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(is_question=True).filter(downvote=True)
         return downvotes.count()
 
     class Meta:
@@ -46,12 +46,12 @@ class Answers(models.Model):
 
     @property
     def upvote_count(self):
-        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(upvote=True)
+        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(is_answer=True).filter(upvote=True)
         return upvotes.count()
 
     @property
     def downvote_count(self):
-        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(downvote=True)
+        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(is_answer=True).filter(downvote=True)
         return downvotes.count()
 
 
@@ -77,12 +77,14 @@ class Count(models.Model):
 
 
 class Vote(models.Model):                               # I plan on handling this by making
-    voter_pk = models.IntegerField(default=-1)          # a function in my views.py that
+    votee_pk = models.IntegerField(default=-1)          # a function in my views.py that
     voter = models.ForeignKey('Profile', default=None)  # will take in **kwargs and will
-    upvote = models.BooleanField()                      # be able to put into context data
-    downvote = models.BooleanField()                    # that function can then be turned
-    timestamp = models.DateTimeField(auto_now_add=True) # into two buttons labeled upvote and downvote
-
+    upvote = models.BooleanField(default=False)                      # be able to put into context data
+    downvote = models.BooleanField(default=False)               # when completed == True vote is active
+    completed = models.BooleanField(default=False)  # that function can then be turned
+    timestamp = models.DateTimeField(auto_now_add=True)  # into two buttons labeled upvote and downvote
+    is_question = models.BooleanField(default=False)  # votee_pk is the model being voted on
+    is_answer = models.BooleanField(default=False)
     def __str__(self):                            # params will still need to be set based on the
         if self.upvote == True:                   # instance and possibly in the the template
             return 'Upvote'                       # using if statments and for loops

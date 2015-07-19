@@ -24,7 +24,8 @@ class TagForm(forms.ModelForm):
         fields = ['tag']
 
 
-
+class VotingForm(forms.ModelChoiceField):
+    pass
 
 
 

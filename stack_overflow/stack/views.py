@@ -144,3 +144,70 @@ class TagCreation(CreateView):
         else:
             return super(TagCreation, self).form_valid(form)
 
+
+def vote_create(self, user_pk, votee_pk, model_type, vote_type='upvote'):
+    context = {}
+    question = False
+    answer = False
+    downvote = False
+    profile = Profile.objects.get(pk=user_pk)
+    model_type = model_type
+    if model_type == 'Question':
+        question = True
+        obj = Question.objects.get(pk=votee_pk)
+    if model_type == 'Answers':
+        answer = True
+        obj = Answers.objects.get(pk=votee_pk)
+    if vote_type == 'downvote':
+        downvote = True
+
+
+
+    pass
+
+
+
+def cart(requests):
+    context = {}
+    user_id = requests.user.id
+    user_id = User.objects.get(id=user_id)
+    #print("Check if no cart", bool(Order.objects.filter(user=Profile.objects.get(user=user_id))))
+    #print("Check if needs new cart", bool(Order.objects.filter(user=Profile.objects.get(user=user_id), submit=True, completed=True)))
+    #print("Check if Cart is set", bool(Order.objects.filter(user=Profile.objects.get(user=user_id), submit=False, completed=False)))
+    if Order.objects.filter(user=Profile.objects.get(user=user_id), submit=False, completed=False):
+        order = Order.objects.get(user=Profile.objects.get(user=user_id), submit=False, completed=False)
+        items = Count.objects.filter(order=order)
+        print("Here")
+        print(bool(len(items)))
+        if bool(len(items)):
+            print("Made it")
+            context['items'] = items
+            context['order'] = order.id
+            #context['orderobject'] = order
+    elif bool(Order.objects.filter(user=Profile.objects.get(user=user_id), submit=True, completed=True)):
+        order = Order.objects.create(user=Profile.objects.get(user=user_id), submit=False, completed=False)
+        order.save()
+        context['status'] = "Cart is empty"
+    elif not bool(Order.objects.filter(user=Profile.objects.get(user=user_id))):
+        order = Order.objects.create(user=Profile.objects.get(user=user_id), submit=False, completed=False)
+        order.save()
+        context['status'] = "Cart is empty"
+    else:
+        context['status'] = "Order is being proccessed: Call 864-252-5185 to check on the status of your order"
+        context['state'] = 1
+    return render_to_response("cart.html", context, context_instance=RequestContext(requests))
+
+
+def addtoorder(requests, item_id):
+    if requests.POST:
+        user_id = requests.user.id
+        user_id = User.objects.get(id=user_id)
+        print("Made it to here")
+        order = Order.objects.get(user = Profile.objects.get(user=user_id), submit=False)
+        print(order)
+        itemcount = Count.objects.create(item=Item.objects.get(id = item_id), order = order, count = requests.POST['count'])
+        order.save()
+        itemcount.save()
+        menu_id = int(requests.POST['menu'])
+        print(menu_id)
+        return redirect('restaurant_app:menu', id=menu_id)
