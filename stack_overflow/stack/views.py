@@ -93,6 +93,9 @@ class AskQuestion(CreateView):
 
     def form_valid(self, form):
         current_user = Profile.objects.get(pk=self.request.user.id)
+        x = current_user
+        x.score += 5
+        x.save()
         form.instance.user = current_user
         return super(AskQuestion, self).form_valid(form)
 
@@ -158,7 +161,6 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
         profile = Profile.objects.get(pk=user_pk)
         model_type = model_type
         obj = ''
-        owner = ''
         if model_type == 'question':
             question = True
             obj = Question.objects.get(pk=votee_pk)
