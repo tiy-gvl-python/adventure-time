@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 import numpy as np
-from rest_framework import generics, serializers
+import django_filters
+from rest_framework import generics, serializers, filters
+from rest_framework.response import Response
 
 from api.models import Respondent, Activity, Demographic
 
@@ -10,7 +12,7 @@ class RespondentSerializer(serializers.ModelSerializer):
     activities = serializers.SerializerMethodField()
 
     def get_activities(self, obj):
-        print("test")
+        print("your mom goes to college")
         active = {}
         activities = Activity.objects.filter(respondent=obj)
         for activity in activities:
@@ -29,6 +31,11 @@ class DemographicSerializer(serializers.ModelSerializer):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
+    filter = serializers.SerializerMethodField()
+
+    def get_filter(self, obj):
+        respondent = Respondent.objects.filter()
+
     class Meta:
         model = Activity
 
@@ -36,6 +43,8 @@ class ActivitySerializer(serializers.ModelSerializer):
 class RespondentListView(generics.ListAPIView):
     queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
+    filter_backend = (filters.DjangoFilterBackend,)
+    filter_fields = {'age':['exact', 'lte', 'lt', 'gt']}
 
 
 class RespondentDetailView(generics.RetrieveAPIView):  # This needs to have an Activity Dictionary added to it.
@@ -46,6 +55,9 @@ class RespondentDetailView(generics.RetrieveAPIView):  # This needs to have an A
 class ActivityDetailView(generics.GenericAPIView):
     # queryset = get_queryset()
     serializer_class = ActivitySerializer
+    filter_backend = (filters.DjangoFilterBackend,)
+    filter_fields = ["average_minutes"]
+
 
     def get_queryset(self):
         print("hey")
@@ -66,8 +78,8 @@ class ActivityDetailView(generics.GenericAPIView):
         queryset = self.get_queryset()
         act_obj = {}
         minutes = []
-        for activitiy in queryset:
-            minutes.append(activitiy.minutes)
+        for activity in queryset:
+            minutes.append(activity.minutes)
         act_obj['code'] = pk
         if len(pk) == 2:
             act_obj['codes'] = [pk]
@@ -76,10 +88,11 @@ class ActivityDetailView(generics.GenericAPIView):
         elif len(pk) == 6:
             act_obj['codes'] = [pk[:2], pk[2:4], pk[4:]]
 
-        act_obj["Average_minutes"] = np.mean(minutes)
-        act_obj["Total Number Of Respondents"] = len(queryset)
+        act_obj["average_minutes"] = np.mean(minutes)
+        act_obj["total_number_of_respondents"] = len(queryset)
 
-        return JsonResponse(act_obj)
+        # return JsonResponse(act_obj)  # Imported from django.http ---> will not return a Rest Framework API View
+        return Response(act_obj)  # Imported from rest_framework
 
     def get(self, request, pk, format=None):
         return self.get_object(pk)
