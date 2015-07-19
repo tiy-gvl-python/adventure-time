@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from .models import Profile, Answers, Tag, Question
 from django import forms
-from django.forms.models import inlineformset_factory
 
 
 
@@ -23,9 +22,6 @@ class TagForm(forms.ModelForm):
         model = Tag
         fields = ['tag']
 
-
-class VotingForm(forms.ModelChoiceField):
-    pass
 
 
 

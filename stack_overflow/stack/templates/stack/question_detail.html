@@ -9,7 +9,8 @@
 <br>
 
 {% block body %}
-    <h1>{{ question.title }}</h1>
+    <h2>{{ question.title }}</h2>
+    <h6>Score: {{question.score}}</h6>
     <p>{{question.text}}</p>
 <form action="{% url 'stack:vote_create' question.pk 'question' 'upvote' %}" method="POST">
                     {% csrf_token %}
@@ -24,7 +25,14 @@
     <div>Score: {{obj.score}} <br>Timestamp: {{obj.timestamp}}</br>User:
      {% if obj.user.user.pk %}   <a href="{% url 'stack:Profile' obj.user.user.pk %}">{% endif %}
    {{obj.user.user.username}}</a>
-
+    <form action="{% url 'stack:vote_create' obj.pk 'answer' 'upvote' %}" method="POST">
+        {% csrf_token %}
+        <input id="submit" type="submit" value="upvote"/>
+    </form>
+    <form action="{% url 'stack:vote_create' obj.pk 'answer' 'downvote' %}" method="POST">
+        {% csrf_token %}
+        <input id="submit" type="submit" value="downvote"/>
+    </form>
      <br> </br> {{obj.text}}</div><br></br>
 {% endfor %}
 

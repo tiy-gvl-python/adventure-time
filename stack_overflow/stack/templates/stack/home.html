@@ -3,7 +3,8 @@
 {% block body %}
 {% if user.id %}
     <a href="{% url 'stack:Profile' user.id %}">Your Profile</a>
-{% endif %}
+{% endif %}<br></br>
+<a href="{% url 'stack:ListOfUsers' %}">Users</a>
 <h2>Top Rated Questions</h2>
 
 {% for que in top_questions %}
