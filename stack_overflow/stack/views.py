@@ -77,6 +77,7 @@ def question_page(request, question_id):
         if Answers.objects.filter(question=ques):
             answer = Answers.objects.filter(question=ques)
             context = {'question': ques, 'answer': answer}
+
         else:
             context = {'question': ques}
     except Question.DoesNotExist:

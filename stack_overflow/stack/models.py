@@ -5,15 +5,26 @@ from autoslug import AutoSlugField
 
 class Question(models.Model):
     user = models.ForeignKey(User)
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=140)
     text = models.TextField()
     slug = AutoSlugField(populate_from='title')
     score = models.IntegerField(default=0)
     tags = models.ManyToManyField('Tag')
     timestamp = models.DateTimeField(auto_now_add=True)
+    votes = models.ManyToManyField('Vote')
 
     def __str__(self):
         return 'User: {}\nTitle: {}'.format(self.user.username, self.title)
+
+    @property
+    def upvote_count(self):
+        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(upvote=True)
+        return upvotes.count()
+
+    @property
+    def downvote_count(self):
+        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(downvote=True)
+        return downvotes.count()
 
     class Meta:
         ordering = ['-score']
@@ -25,12 +36,24 @@ class Answers(models.Model):
     text = models.TextField()
     score = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
+    votes = models.ManyToManyField('Vote')
 
     class Meta:
         ordering = ['-score']
 
     def __str__(self):
         return '{}'.format(self.question.title)
+
+    @property
+    def upvote_count(self):
+        upvotes = Vote.objects.filter(voter_pk=self.pk).filter(upvote=True)
+        return upvotes.count()
+
+    @property
+    def downvote_count(self):
+        downvotes = Vote.objects.filter(voter_pk=self.pk).filter(downvote=True)
+        return downvotes.count()
+
 
 class Tag(models.Model):
     tag = models.CharField(max_length=45) #length of longest english word
@@ -43,6 +66,7 @@ class Tag(models.Model):
     def __str__(self):
         return '{}'.format(self.tag)
 
+
 class Count(models.Model):
     question = models.ForeignKey(Question)
     answer = models.ForeignKey(Answers)
@@ -51,14 +75,17 @@ class Count(models.Model):
     def __str__(self):
         return 'Count: {}'.format(self.count)
 
-class Vote(models.Model):
-    upvote = models.BooleanField()
-    downvote = models.BooleanField()
-    timestamp = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        if self.upvote == True:
-            return 'Upvote'
+class Vote(models.Model):                               # I plan on handling this by making
+    voter_pk = models.IntegerField(default=-1)          # a function in my views.py that
+    voter = models.ForeignKey('Profile', default=None)  # will take in **kwargs and will
+    upvote = models.BooleanField()                      # be able to put into context data
+    downvote = models.BooleanField()                    # that function can then be turned
+    timestamp = models.DateTimeField(auto_now_add=True) # into two buttons labeled upvote and downvote
+
+    def __str__(self):                            # params will still need to be set based on the
+        if self.upvote == True:                   # instance and possibly in the the template
+            return 'Upvote'                       # using if statments and for loops
         elif self.downvote == True:
             return 'Downvote'
         else:
@@ -74,6 +101,16 @@ class Profile(models.Model):
 
     def __str__(self):
         return 'username: {}\npoints: {}'.format(self.user, self.points)
+
+    @property
+    def upvote_count(self):
+        upvotes = Vote.objects.filter(voter=self.user).filter(upvote=True)
+        return upvotes.count()
+
+    @property
+    def downvote_count(self):
+        downvotes = Vote.objects.filter(voter=self.user).filter(downvote=True)
+        return downvotes.count()
 
     class Meta:
         ordering = ['-points']
