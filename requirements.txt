@@ -6,7 +6,6 @@ dj-static
 gunicorn
 psycopg2
 static
-wsgiref
 djangorestframework
 markdown
 django-filter

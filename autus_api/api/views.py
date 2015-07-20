@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 import numpy as np
 import django_filters
@@ -15,6 +15,7 @@ class ResActSerializer(serializers.ModelSerializer):
 
     def restore_fields(self, data, files):
         print("hey")
+
     def get_filt(self, obj):
         return self._context['request'].QUERY_PARAMS
 
@@ -39,7 +40,8 @@ class ResActSerializer(serializers.ModelSerializer):
         elif len(act_id) == 6:
             print("six")
             act_obj['codes'] = [act_id[:2], act_id[2:4], act_id[4:]]
-            act_list = Activity.objects.filter(respondent__in=respondent , cat_1=act_id[:2], cat_2=act_id[2:4], cat_3=act_id[4:])
+            act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id[:2], cat_2=act_id[2:4],
+                                               cat_3=act_id[4:])
             print(act_list)
         for act in act_list:
             minutes.append(act.minutes)
@@ -58,7 +60,6 @@ class RespondentSerializer(serializers.ModelSerializer):
     activities = serializers.SerializerMethodField()
 
     def get_activities(self, obj):
-        print("your mom goes to college")
         active = {}
         activities = Activity.objects.filter(respondent=obj)
         for activity in activities:
@@ -72,7 +73,6 @@ class RespondentSerializer(serializers.ModelSerializer):
 
 
 class DemographicSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Demographic
 
@@ -80,6 +80,7 @@ class DemographicSerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
     filter = serializers.SerializerMethodField()
     print('hello')
+
     def get_filter(self, obj):
         respond = {}
         respondent = Respondent.objects.filter()
@@ -90,10 +91,15 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class RespondentListView(generics.ListAPIView):
-    queryset = Respondent.objects.all()
+    # queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
     filter_backend = (filters.DjangoFilterBackend,)
-    filter_fields = {'age':['exact', 'lte', 'lt', 'gt']}
+    filter_fields = {'age': ['exact', 'lte', 'lt', 'gt']}
+
+    def get_queryset(self):
+        print("h")
+        slic = int(self.kwargs['num'])
+        return Respondent.objects.all()[:slic]
 
 
 class RespondentDetailView(generics.RetrieveAPIView):
@@ -106,7 +112,6 @@ class ActivityDetailView(generics.GenericAPIView):
     serializer_class = ActivitySerializer
     filter_backend = (filters.DjangoFilterBackend,)
     filter_fields = ["average_minutes"]
-
 
     def get_queryset(self):
         print("hey")
@@ -148,12 +153,13 @@ class ActivityDetailView(generics.GenericAPIView):
 
 
 class ActivitiesRes(generics.ListAPIView):
-    #print("Hey")
-    #queryset = Activity.objects.filter()
+    # print("Hey")
+    # queryset = Activity.objects.filter()
     serializer_class = ResActSerializer
     filter_backend = (filters.DjangoFilterBackend,)
-    filter_fields = {'sex': ['exact','lt', 'gt','lte', 'gte'], 'age': ['exact','lt', 'gt','lte', 'gte'],
-                     'hours_worked_per_week': ['exact','lt', 'gt','lte', 'gte' ]}
+    filter_fields = {'sex': ['exact', 'lt', 'gt', 'lte', 'gte'], 'age': ['exact', 'lt', 'gt', 'lte', 'gte'],
+                     'hours_worked_per_week': ['exact', 'lt', 'gt', 'lte', 'gte']}
+
     def get_queryset(self):
         print("eh")
         act_code = self.kwargs['pk']
@@ -176,7 +182,8 @@ class ActivitiesRes(generics.ListAPIView):
             return Respondent.objects.filter(pk__in=list_of_ids)
         elif act_code_len == 6:
             print("hey")
-            act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:]).values_list('respondent')
+            act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:]).values_list(
+                'respondent')
             print(act_set)
             print("Y")
             # return [Respondent.objects.get(id=id[0]) for id in act_set]
@@ -185,7 +192,6 @@ class ActivitiesRes(generics.ListAPIView):
             # return Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:])
         else:
             raise Exception("We don't have that")
-
 
     """def list(self, request, *args, **kwargs):
         print("Hey Yo LETS GO")
