@@ -1,1 +1,1 @@
-web:  python stack_overflow/manage.py collectstatic --noinput; python stack_overflow/manage.py migrate; python stack_overflow/manage.py createsuperuser;python username; python ;python username; python username; gunicorn -p 0.0.0.0:8000 --pythonpath=./stack_overflow stack_overflow.wsgi:application
+web:  python stack_overflow/manage.py collectstatic --noinput; python stack_overflow/manage.py migrate; gunicorn -p 0.0.0.0:8000 --pythonpath=./stack_overflow stack_overflow.wsgi:application
