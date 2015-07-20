@@ -3,6 +3,9 @@ venv
 .idea* 
 __pycache__* 
 *__pycache__*
+
+*.pyc
+staticfiles
  
 *.pyc# Created by https://www.gitignore.io
 staticfiles
