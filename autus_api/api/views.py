@@ -3,6 +3,7 @@ from django.shortcuts import render
 import numpy as np
 import django_filters
 from rest_framework import generics, serializers, filters
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from api.models import Respondent, Activity, Demographic
@@ -201,3 +202,4 @@ class ActivitiesRes(generics.ListAPIView):
         response.data = response.data[0]
         print(len(response.data))
         return response
+
