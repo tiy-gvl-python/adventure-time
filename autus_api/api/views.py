@@ -57,7 +57,6 @@ class RespondentSerializer(serializers.ModelSerializer):
     activities = serializers.SerializerMethodField()
 
     def get_activities(self, obj):
-        print("your mom goes to college")
         active = {}
         activities = Activity.objects.filter(respondent=obj)
         for activity in activities:
