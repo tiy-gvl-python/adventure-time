@@ -71,6 +71,7 @@ class RespondentSerializer(serializers.ModelSerializer):
 
 
 class DemographicSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Demographic
 
@@ -82,6 +83,7 @@ class ActivitySerializer(serializers.ModelSerializer):
         respond = {}
         respondent = Respondent.objects.filter()
         return respond
+
     class Meta:
         model = Activity
 
@@ -93,7 +95,7 @@ class RespondentListView(generics.ListAPIView):
     filter_fields = {'age':['exact', 'lte', 'lt', 'gt']}
 
 
-class RespondentDetailView(generics.RetrieveAPIView):  # This needs to have an Activity Dictionary added to it.
+class RespondentDetailView(generics.RetrieveAPIView):
     queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
 
