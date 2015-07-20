@@ -203,9 +203,9 @@ class ActivitiesRes(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
-        print(response)
+        print("Response data", response.data)
         print(len(response.data))
-        response.data = response.data[0]
+        response.data = response.data['results'][0]
         print(len(response.data))
         return response
 
