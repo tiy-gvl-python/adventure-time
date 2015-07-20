@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from chatroom1.views import ThreadListView
+from overflow_app.views import QuestionListView
+
 
 urlpatterns = [
-    url(r'^thread_list/', ThreadListView.as_view(), name='thread_list'),
+    url(r'^question_list/', QuestionListView.as_view(), name='question_list'),
     url(r'^admin/', include(admin.site.urls)),
 ]

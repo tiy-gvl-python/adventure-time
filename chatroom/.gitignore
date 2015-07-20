@@ -68,8 +68,3 @@ target/
 __pycache__/
 local_settings.py
 
-staticfiles
-*direnv
-*db*
-.idea/
-venv

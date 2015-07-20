@@ -1,0 +1,9 @@
+dj-database-url
+dj-static
+Django
+django-toolbelt
+gunicorn
+psycopg2
+pytz
+static3
+wheel
