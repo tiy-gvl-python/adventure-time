@@ -88,10 +88,16 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class RespondentListView(generics.ListAPIView):
-    queryset = Respondent.objects.all()
+    # queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
     filter_backend = (filters.DjangoFilterBackend,)
     filter_fields = {'age':['exact', 'lte', 'lt', 'gt']}
+
+    def get_queryset(self):
+        print("h")
+        slic = int(self.kwargs['num'])
+        return Respondent.objects.all()[:slic]
+
 
 
 class RespondentDetailView(generics.RetrieveAPIView):
