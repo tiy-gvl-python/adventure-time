@@ -2,26 +2,25 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('chatroom1', '0001_initial'),
+        ('NEEDSTOGETOUT', '0002_auto_20150718_1503'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='conversationthread',
-            name='user',
-            field=models.ForeignKey(default=1, to=settings.AUTH_USER_MODEL),
+            name='updated',
+            field=models.DateTimeField(default=1, auto_now=True),
             preserve_default=False,
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name='postreply',
-            name='user',
-            field=models.ForeignKey(default=1, to=settings.AUTH_USER_MODEL),
+            name='updated',
+            field=models.DateTimeField(default=1, auto_now=True),
             preserve_default=False,
         ),
     ]

@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('body', models.TextField()),
                 ('post_rating', models.IntegerField(default=0)),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('thread', models.ForeignKey(to='chatroom1.ConversationThread')),
+                ('thread', models.ForeignKey(to='NEEDSTOGETOUT.ConversationThread')),
                 ('user', models.OneToOneField(null=True, to=settings.AUTH_USER_MODEL)),
             ],
             options={
