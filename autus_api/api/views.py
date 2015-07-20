@@ -207,9 +207,3 @@ class ActivitiesRes(generics.ListAPIView):
         response.data = response.data[0]
         print(len(response.data))
         return response
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        print(serializer.data)
-        return Response(serializer.data)
