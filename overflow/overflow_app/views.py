@@ -5,15 +5,11 @@ from .models import Question, UserProfile, Reply
 
 # Create your views here.
 
-
-# Thread/Topic section
-
-'''
-class ThreadCreateView(CreateView):
-    model = ConversationThread
-    success_url = reverse_lazy('NEEDSTOGETOUT:thread_list')
-    fields = ['user', 'timestamp']
-'''
+class QuestionCreateView(CreateView):
+    model = Question
+    success_url = reverse_lazy('question_form.html')
+    template = 'templates/question_form.html'
+    fields = ['user']
 '''
     def form_valid(self, form):
         form.instance.user = UserProfile.objects.get(user=self.request.user)
@@ -23,20 +19,23 @@ class ThreadCreateView(CreateView):
 class QuestionListView(ListView):
     model = Question
     success_url = reverse_lazy('question_list')
-    template = "templates/question_list.html"
+    template = 'templates/question_list.html'
+
+
+class QuestionDeleteView(DeleteView):
+    model = Question
+    success_url = reverse_lazy('question_delete')
+    template = 'templates/question_delete.html'
+
+
+class QuestionUpdateView(UpdateView):
+    model = Question
+    success_url = reverse_lazy('question_update')
+    template = 'templates/question_update.html'
+    fields = ['user', 'update']
+
 
 '''
-class ThreadDeleteView(DeleteView):
-    model = ConversationThread
-    success_url = reverse_lazy('NEEDSTOGETOUT:Moderator_thread_list')
-
-
-class ThreadUpdateView(UpdateView):
-    model = ConversationThread
-    success_url = reverse_lazy('NEEDSTOGETOUT:admin_comment_list')
-    fields = ['user', 'update', 'recommend']
-
-
 class ModeratorThreadListView(ListView):
     model = Comment
     success_url = reverse_lazy('restaurant_app:admin_comment_list')

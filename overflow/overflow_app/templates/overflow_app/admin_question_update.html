@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+{% block body %}
+<h1>Delete things here</h1>
+    <h1>Comments List</h1>
+{% for comment in object_list %}
+    <div>{{ "Left by: "}} {{ comment.user }} <br/> {{ "Comment: "}}{{ comment.comment }} <br/> {{ comment.timestamp}}
+        <form method="POST" action="{% url 'restaurant_app:admin_delete_comment' comment.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <form method="get" action="{% url 'restaurant_app:admin_comment_update' comment.id %}">
+        {% csrf_token %}
+        <button type="submit">Edit</button>
+    </form>
+    {% endfor %}
+
+
+    </div>
+
+{% endblock %}
+</body>
+
+</html>
+
+{% for item in object_list %}
+    <div>{{ item.name }} {{item.price}} {{item.description}} {{item.update}}
+    <form method="POST" action="{% url 'restaurant_app:delete_item' item.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <form method="get" action="{% url 'restaurant_app:item_update' item.id %}">
+        {% csrf_token %}
+        <button type="submit">Edit</button>
+    </form>
+    {% endfor %}
