@@ -168,7 +168,11 @@ class TagCreation(CreateView):
 
 def vote_create(request, votee_pk, model_type, vote_type='upvote'):
     print('here') # separate this out into more than one function so that
-    x_var = votee_pk    # people can only vote on one question at a time
+    if model_type == 'answer':
+        obj = Answers.objects.get(pk=votee_pk)
+        x_var = obj.question.pk
+    else:
+        x_var = votee_pk    # people can only vote on one question at a time
     if request.POST:
         print('sent post')
         user_pk = request.user.pk
@@ -186,8 +190,6 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
                 obj = Question.objects.get(pk=votee_pk)
             if model_type == 'answer':
                 answer = True
-                obj = Answers.objects.get(pk=votee_pk)
-                x_var = obj.question.pk
             if vote_type == 'downvote':
                 downvote = True
                 upvote = False
