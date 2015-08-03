@@ -189,6 +189,7 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
                 question = True
                 obj = Question.objects.get(pk=votee_pk)
             if model_type == 'answer':
+                obj = Answers.objects.get(pk=votee_pk)
                 answer = True
             if vote_type == 'downvote':
                 downvote = True
@@ -216,12 +217,12 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
                 obj.save()
                 owner.save()
             vote = Vote.objects.create(votee_pk=votee_pk,
-                                       voter=profile,
-                                       upvote=upvote,
-                                       downvote=downvote,
-                                       completed=True,
-                                       is_question=question,
-                                       is_answer=answer)
+                                           voter=profile,
+                                           upvote=upvote,
+                                           downvote=downvote,
+                                           completed=True,
+                                           is_question=question,
+                                           is_answer=answer)
             vote.save()
         else:
             pass
