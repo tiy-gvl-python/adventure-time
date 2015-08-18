@@ -1,3 +1,6 @@
+The API is deployed here https://autus-project.herokuapp.com/
+I learned how to create a more indepth API and got more practice deploying to Heroku
+
 # Week 8 Weekend Lab
 
 Working as a team, choose one of the following assignments and complete
