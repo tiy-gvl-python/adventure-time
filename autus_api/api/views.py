@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 import numpy as np
 import django_filters
 from rest_framework import generics, serializers, filters
@@ -208,4 +208,3 @@ class ActivitiesRes(generics.ListAPIView):
         response.data = response.data['results'][0]
         print(len(response.data))
         return response
-
