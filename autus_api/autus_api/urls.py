@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 from api import views
 
 urlpatterns = [
@@ -23,5 +24,6 @@ urlpatterns = [
     url(r'^respondent/(?P<pk>\d+)/$', views.RespondentDetailView.as_view(), name='respondent_detail'),
     url(r'^activity/(?P<pk>\d+)/$', views.ActivityDetailView.as_view(), name='activity_detail'),
     url(r'^activities/(?P<pk>\d+)/$', views.ActivitiesRes.as_view(), name='activities_res'),
+    url(r'^$', TemplateView.as_view(template_name='docs.html'), name="docs")
 
 ]
