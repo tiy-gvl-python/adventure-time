@@ -94,7 +94,8 @@ class RespondentListView(generics.ListAPIView):
     queryset = Respondent.objects.all()
     serializer_class = RespondentSerializer
     filter_backend = (filters.DjangoFilterBackend,)
-    filter_fields = {'age': ['exact', 'lte', 'lt', 'gt']}
+    filter_fields = {'age': ['exact', 'lte', 'lt', 'gt'], 'sex':['exact'], 'case_id': ['exact', 'lte', 'lt', 'gt'],
+                     'hours_worked_per_week': ['exact', 'lte', 'lt', 'gt'] }
 
     #def get_queryset(self):
         # print("h")
@@ -157,7 +158,7 @@ class ActivitiesRes(generics.ListAPIView):
     # queryset = Activity.objects.filter()
     serializer_class = ResActSerializer
     filter_backend = (filters.DjangoFilterBackend,)
-    filter_fields = {'sex': ['exact', 'lt', 'gt', 'lte', 'gte'], 'age': ['exact', 'lt', 'gt', 'lte', 'gte'],
+    filter_fields = {'sex': ['exact'], 'case_id': ['exact', 'lte', 'lt', 'gt'],'age': ['exact', 'lt', 'gt', 'lte', 'gte'],
                      'hours_worked_per_week': ['exact', 'lt', 'gt', 'lte', 'gte']}
 
     def get_queryset(self):
