@@ -4,7 +4,6 @@
 
 <meta charset="utf-8" />
 <title>re-doc</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -130,14 +129,14 @@ div#notebook {
   div.cell {
     display: block;
     page-break-inside: avoid;
-  }
-  div.output_wrapper {
+  } 
+  div.output_wrapper { 
     display: block;
-    page-break-inside: avoid;
+    page-break-inside: avoid; 
   }
-  div.output {
+  div.output { 
     display: block;
-    page-break-inside: avoid;
+    page-break-inside: avoid; 
   }
 }
 </style>
@@ -173,9 +172,18 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Documentation-for-an-Atus-Api">Documentation for an Atus Api<a class="anchor-link" href="#Documentation-for-an-Atus-Api">&#182;</a></h1>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">requests</span>
@@ -191,14 +199,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">In order to see details on an individual respondent simply call their id number.<a class="anchor-link" href="#In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">&#182;</a></h3><p><code>../respndent/&lt;id&gt;/</code></p>
+<h3 id="In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">In order to see details on an individual respondent simply call their id number.<a class="anchor-link" href="#In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">&#182;</a></h3><p><code>../respondent/&lt;id&gt;/</code></p>
 <h6 id="For-Example:">For Example:<a class="anchor-link" href="#For-Example:">&#182;</a></h6>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">single_respondent</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/respondent/40/&#39;</span><span class="p">)</span>
@@ -213,7 +221,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[50]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -264,7 +272,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">filtered_respondent</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/respondents/?age_lt=20&#39;</span><span class="p">)</span>
@@ -279,7 +287,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[65]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -314,8 +322,8 @@ div#notebook {
    &apos;hours_worked_per_week&apos;: 35,
    &apos;sex&apos;: 2,
    &apos;weight&apos;: 23147368.359655}
-<br>
-    <p>...trunc.....</p>
+    <br>
+<p>...trunc.....</p>
 </pre>
 </div>
 
@@ -350,7 +358,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">all_actcode</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activity/01/&#39;</span><span class="p">)</span>
@@ -365,14 +373,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[55]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&apos;average_minutes&apos;: 64.46545510313626,
  &apos;code&apos;: &apos;01&apos;,
  &apos;codes&apos;: [&apos;01&apos;],
- &apos;total_number_of_respondents&apos;: 104328}</pre>
+ &apos;total_number_of_respondents_calculated&apos;: 104328}</pre>
 </div>
 
 </div>
@@ -392,7 +400,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">second_actcode</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activity/0101/&#39;</span><span class="p">)</span>
@@ -407,14 +415,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&apos;average_minutes&apos;: 266.76000690131127,
  &apos;code&apos;: &apos;0101&apos;,
  &apos;codes&apos;: [&apos;01&apos;, &apos;01&apos;],
- &apos;total_number_of_respondents&apos;: 23184}</pre>
+ &apos;total_number_of_respondents_calculated&apos;: 23184}</pre>
 </div>
 
 </div>
@@ -434,7 +442,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">third_activity_code</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activity/010102/&#39;</span><span class="p">)</span>
@@ -449,14 +457,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[42]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&apos;average_minutes&apos;: 4.146652864044168,
  &apos;code&apos;: &apos;010102&apos;,
  &apos;codes&apos;: [&apos;01&apos;, &apos;01&apos;, &apos;02&apos;],
- &apos;total_number_of_respondents&apos;: 11592}</pre>
+ &apos;total_number_of_respondents_calculated&apos;: 11592}</pre>
 </div>
 
 </div>
@@ -488,7 +496,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">activity</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?age_gt=20&amp;offset=200&#39;</span><span class="p">)</span>
@@ -503,7 +511,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[61]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -531,7 +539,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">activity_2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?sex=2&amp;offset=42&#39;</span><span class="p">)</span>
@@ -546,7 +554,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[64]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -565,7 +573,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">activity_3</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?hours_worked_per_week_lte=40&#39;</span><span class="p">)</span>
@@ -580,14 +588,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[45]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&apos;activities&apos;: {&apos;average_minutes&apos;: 64.83666666666667,
   &apos;code&apos;: &apos;01&apos;,
   &apos;codes&apos;: [&apos;01&apos;],
-  &apos;total_number_of_respondents&apos;: 100},
+  &apos;total_number_of_respondents_calculated&apos;: 100},
  &apos;filt&apos;: {&apos;hours_worked_per_week_lte&apos;: &apos;40&apos;}}</pre>
 </div>
 
@@ -597,6 +605,30 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Links-to-the-Data-used">Links to the Data used<a class="anchor-link" href="#Links-to-the-Data-used">&#182;</a></h5><ul>
+<li>Activity Summary: <a href="http://www.bls.gov/tus/datafiles_2014.htm">http://www.bls.gov/tus/datafiles_2014.htm</a></li>
+<li>Activity Lexicon: <a href="http://www.bls.gov/tus/lexiconwex2014.pdf">http://www.bls.gov/tus/lexiconwex2014.pdf</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This API was written and documented by Bekk Blando and Soren Olegnowicz.</p>
+
+</div>
+</div>
+</div>
+
     </div>
   </div>
 </body>
