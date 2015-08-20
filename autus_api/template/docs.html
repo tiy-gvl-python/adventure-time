@@ -174,7 +174,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">requests</span>
@@ -190,14 +190,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number">In order to see details on an individual respondent simply call their id number.<a class="anchor-link" href="#In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number">&#182;</a></h3><p><code>../respndent/&lt;id&gt;/</code></p>
+<h3 id="In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">In order to see details on an individual respondent simply call their id number.<a class="anchor-link" href="#In-order-to-see-details-on-an-individual-respondent-simply-call-their-id-number.">&#182;</a></h3><p><code>../respndent/&lt;id&gt;/</code></p>
 <h6 id="For-Example:">For Example:<a class="anchor-link" href="#For-Example:">&#182;</a></h6>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">single_respondent</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/respondent/40/&#39;</span><span class="p">)</span>
@@ -212,7 +212,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[50]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -245,7 +245,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Filtering"><em>Filtering</em><a class="anchor-link" href="#Filtering">&#182;</a></h1><h3 id="First-define-the-query-in-the-payload">To filter respondents by attribute, combine one of the filter fields with an operator, and set them equal to some value.<a class="anchor-link" href="#First-define-the-query-in-the-payload">&#182;</a></h3><h4 id="Filter-Fields">Filter Fields<a class="anchor-link" href="#Filter-Fields">&#182;</a></h4><ul>
+<h1 id="Filtering"><em>Filtering</em><a class="anchor-link" href="#Filtering">&#182;</a></h1><h3 id="To-filter-respondents-by-attribute,-combine-one-of-the-filter-fields-with-an-operator,-and-set-them-some-value.">To filter respondents by attribute, combine one of the filter fields with an operator, and set them some value.<a class="anchor-link" href="#To-filter-respondents-by-attribute,-combine-one-of-the-filter-fields-with-an-operator,-and-set-them-some-value.">&#182;</a></h3><h4 id="Filter-Fields">Filter Fields<a class="anchor-link" href="#Filter-Fields">&#182;</a></h4><ul>
 <li>age</li>
 <li>sex</li>
 <li>hours_worked_per_week</li>
@@ -263,10 +263,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">filtered_respondent</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/respondents/?age_gt=20&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">filtered_respondent</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/respondents/?age_lt=20&#39;</span><span class="p">)</span>
 <span class="n">filtered_respondent</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
 
@@ -278,12 +278,12 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[65]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&apos;count&apos;: 11592,
- &apos;next&apos;: &apos;https://autus-project.herokuapp.com/respondents/?age_gt=20&amp;offset=100&apos;,
+ &apos;next&apos;: &apos;https://autus-project.herokuapp.com/respondents/?age_lt=20&amp;offset=100&apos;,
  &apos;previous&apos;: None,
  &apos;results&apos;: [{&apos;activities&apos;: {&apos;010101&apos;: 1145,
     &apos;010201&apos;: 60,
@@ -312,51 +312,9 @@ div#notebook {
    &apos;case_id&apos;: 20140101140011,
    &apos;hours_worked_per_week&apos;: 35,
    &apos;sex&apos;: 2,
-   &apos;weight&apos;: 23147368.359655},
-  {&apos;activities&apos;: {&apos;010101&apos;: 555,
-    &apos;010201&apos;: 90,
-    &apos;020102&apos;: 60,
-    &apos;020201&apos;: 240,
-    &apos;030109&apos;: 180,
-    &apos;110101&apos;: 60,
-    &apos;120301&apos;: 120,
-    &apos;120303&apos;: 135},
-   &apos;age&apos;: 65,
-   &apos;case_id&apos;: 20140101140028,
-   &apos;hours_worked_per_week&apos;: -1,
-   &apos;sex&apos;: 2,
-   &apos;weight&apos;: 20941823.429044},
-  {&apos;activities&apos;: {&apos;010101&apos;: 780,
-    &apos;010201&apos;: 60,
-    &apos;020201&apos;: 10,
-    &apos;120301&apos;: 350,
-    &apos;120303&apos;: 110,
-    &apos;140101&apos;: 110,
-    &apos;181401&apos;: 20},
-   &apos;age&apos;: 50,
-   &apos;case_id&apos;: 20140101140063,
-   &apos;hours_worked_per_week&apos;: -1,
-   &apos;sex&apos;: 2,
-   &apos;weight&apos;: 2505899.417166},
-  {&apos;activities&apos;: {&apos;010101&apos;: 645,
-    &apos;010201&apos;: 60,
-    &apos;020101&apos;: 95,
-    &apos;020201&apos;: 140,
-    &apos;020203&apos;: 30,
-    &apos;020601&apos;: 20,
-    &apos;020602&apos;: 30,
-    &apos;030101&apos;: 85,
-    &apos;030201&apos;: 90,
-    &apos;050401&apos;: 60,
-    &apos;110101&apos;: 65,
-    &apos;120303&apos;: 120},
-   &apos;age&apos;: 23,
-   &apos;case_id&apos;: 20140101140168,
-   &apos;hours_worked_per_week&apos;: -1,
-   &apos;sex&apos;: 2,
-   &apos;weight&apos;: 15928231.823165}
-    <br>
-    <p>...(truncated)...</p>
+   &apos;weight&apos;: 23147368.359655}
+<br>
+    <p>...trunc.....</p>
 </pre>
 </div>
 
@@ -371,7 +329,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="If-you-wish-to-query-by-activity,-then-use-the-activity-number">If you wish to query by activity, then use the activity number.<a class="anchor-link" href="#If-you-wish-to-query-by-activity,-then-use-the-activity-number">&#182;</a></h3><h4 id="You-can-use-the-numbers-in-three-different-ways">You can use the numbers in three different ways:<a class="anchor-link" href="#You-can-use-the-numbers-in-three-different-ways">&#182;</a></h4><ul>
+<h3 id="If-you-wish-to-query-by-activity,-then-use-the-activity-number.">If you wish to query by activity, then use the activity number.<a class="anchor-link" href="#If-you-wish-to-query-by-activity,-then-use-the-activity-number.">&#182;</a></h3><h4 id="You-can-use-the-numbers-in-three-different-ways:">You can use the numbers in three different ways:<a class="anchor-link" href="#You-can-use-the-numbers-in-three-different-ways:">&#182;</a></h4><ul>
 <li>to refer to the activity category: 'Personal Care' ../activity/01/</li>
 <li>to refer to the activity sub-category: 'Sleeping' ../activity/0101/</li>
 <li>to refer to a specific activity: 'Sleeplessness' ../activity/010102/</li>
@@ -391,7 +349,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">all_actcode</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activity/01/&#39;</span><span class="p">)</span>
@@ -406,7 +364,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[55]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -511,7 +469,10 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-the-same-syntax-from-above,-you-can-filter-through-specific-activities-and-activity-categories">Using the same syntax from above, you can filter through specific activities and activity categories.<a class="anchor-link" href="#Using-the-same-syntax-from-above,-you-can-filter-through-specific-activities-and-activity-categories">&#182;</a></h3>
+<h3 id="Using-the-same-syntax-from-above,-you-can-filter-through-specific-activities-and-activity-categories.">Using the same syntax from above, you can filter through specific activities and activity categories.<a class="anchor-link" href="#Using-the-same-syntax-from-above,-you-can-filter-through-specific-activities-and-activity-categories.">&#182;</a></h3><h4 id="This-filter-uses-pagination,-with-an-initial-offset-equal-to-0.">This filter uses pagination, with an initial offset equal to 0.<a class="anchor-link" href="#This-filter-uses-pagination,-with-an-initial-offset-equal-to-0.">&#182;</a></h4><ul>
+<li>Change the offset by increments of 100 to maintain continuity of the results.</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -526,10 +487,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">activity</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?age_gt=20&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">activity</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?age_gt=20&amp;offset=200&#39;</span><span class="p">)</span>
 <span class="n">activity</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
 
@@ -541,15 +502,15 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[61]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&apos;activities&apos;: {&apos;average_minutes&apos;: 64.83666666666667,
+<pre>{&apos;activities&apos;: {&apos;average_minutes&apos;: 65.49777777777778,
   &apos;code&apos;: &apos;01&apos;,
   &apos;codes&apos;: [&apos;01&apos;],
-  &apos;total_number_of_respondents&apos;: 100},
- &apos;filt&apos;: {&apos;age_gt&apos;: &apos;20&apos;}}</pre>
+  &apos;total_number_of_respondents_calculated&apos;: 100},
+ &apos;filt&apos;: {&apos;age_gt&apos;: &apos;20&apos;, &apos;offset&apos;: &apos;200&apos;}}</pre>
 </div>
 
 </div>
@@ -557,13 +518,22 @@ div#notebook {
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Feel-free-increment-the-offset-by-however-much-you'd-like:">Feel free increment the offset by however much you'd like:<a class="anchor-link" href="#Feel-free-increment-the-offset-by-however-much-you'd-like:">&#182;</a></h5>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">activity_2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?sex=2&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">activity_2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;https://autus-project.herokuapp.com/activities/01/?sex=2&amp;offset=42&#39;</span><span class="p">)</span>
 <span class="n">activity_2</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
 
@@ -575,15 +545,15 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[64]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&apos;activities&apos;: {&apos;average_minutes&apos;: 66.30555555555556,
+<pre>{&apos;activities&apos;: {&apos;average_minutes&apos;: 67.34,
   &apos;code&apos;: &apos;01&apos;,
   &apos;codes&apos;: [&apos;01&apos;],
-  &apos;total_number_of_respondents&apos;: 100},
- &apos;filt&apos;: {&apos;sex&apos;: &apos;2&apos;}}</pre>
+  &apos;total_number_of_respondents_calculated&apos;: 100},
+ &apos;filt&apos;: {&apos;offset&apos;: &apos;42&apos;, &apos;sex&apos;: &apos;2&apos;}}</pre>
 </div>
 
 </div>
@@ -626,20 +596,7 @@ div#notebook {
 </div>
 
 </div>
-{#<div class="cell border-box-sizing code_cell rendered">#}
-{#<div class="input">#}
-{#<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>#}
-{#<div class="inner_cell">#}
-{#    <div class="input_area">#}
-{#<div class=" highlight hl-ipython3"><pre> #}
-{#</pre></div>#}
-{##}
-{#</div>#}
-{#</div>#}
-{#</div>#}
-
-</div>
     </div>
-{#  </div>#}
+  </div>
 </body>
 </html>
