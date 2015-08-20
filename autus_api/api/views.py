@@ -23,32 +23,24 @@ class ResActSerializer(serializers.ModelSerializer):
 
         act_id = self._kwargs['context']['view'].kwargs['pk']
         respondent = self._args[0]
+        print(respondent)
         act_obj = {}
         minutes = []
         act_obj['code'] = act_id
-        print("actid", act_id)
         if len(act_id) == 2:
-            print("Two")
             act_obj['codes'] = [act_id]
             act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id)
-            print(act_list)
         elif len(act_id) == 4:
-            print("Four")
             act_obj['codes'] = [act_id[:2], act_id[2:]]
             act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id[:2], cat_2=act_id[2:])
-            print(act_list)
         elif len(act_id) == 6:
-            print("six")
             act_obj['codes'] = [act_id[:2], act_id[2:4], act_id[4:]]
             act_list = Activity.objects.filter(respondent__in=respondent, cat_1=act_id[:2], cat_2=act_id[2:4],
                                                cat_3=act_id[4:])
-            print(act_list)
         for act in act_list:
             minutes.append(act.minutes)
         act_obj["average_minutes"] = np.mean(minutes)
-        act_obj["total_number_of_respondents"] = len(respondent)
-        print("Length o", len(act_obj))
-        print("activity", act_obj)
+        act_obj["total_number_of_respondents_calculated"] = len(respondent)
         return act_obj
 
     class Meta:
@@ -117,7 +109,6 @@ class ActivityDetailView(generics.GenericAPIView):
     def get_queryset(self):
         print("hey")
         act_code = self.kwargs['pk']
-        print(act_code)
         act_code_len = len(act_code)
         if act_code_len == 2:
             return Activity.objects.filter(cat_1=act_code)
@@ -144,7 +135,7 @@ class ActivityDetailView(generics.GenericAPIView):
             act_obj['codes'] = [pk[:2], pk[2:4], pk[4:]]
 
         act_obj["average_minutes"] = np.mean(minutes)
-        act_obj["total_number_of_respondents"] = len(queryset)
+        act_obj["total_number_of_respondents_calculated"] = len(queryset)
 
         # return JsonResponse(act_obj)  # Imported from django.http ---> will not return a Rest Framework API View
         return Response(act_obj)  # Imported from rest_framework
@@ -162,17 +153,15 @@ class ActivitiesRes(generics.ListAPIView):
                      'hours_worked_per_week': ['exact', 'lt', 'gt', 'lte', 'gte']}
 
     def get_queryset(self):
-        print("eh")
         act_code = self.kwargs['pk']
         print(act_code)
         act_code_len = len(act_code)
         if act_code_len == 2:
-            print("hey")
             act_set = Activity.objects.filter(cat_1=act_code).values_list('respondent')
-            print(act_set)
-            print("Y")
             list_of_ids = [id[0] for id in act_set]
-            return Respondent.objects.filter(pk__in=list_of_ids)
+            respondence = Respondent.objects.filter(pk__in=list_of_ids)
+            print(respondence)
+            return respondence
         elif act_code_len == 4:
             print("Ho")
             act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4]).values_list('respondent')
@@ -180,7 +169,9 @@ class ActivitiesRes(generics.ListAPIView):
             print("Y")
             # return [Respondent.objects.get(id=id[0]) for id in act_set]
             list_of_ids = [id[0] for id in act_set]
-            return Respondent.objects.filter(pk__in=list_of_ids)
+            respondence = Respondent.objects.filter(pk__in=list_of_ids)
+            print(len(respondence))
+            return respondence
         elif act_code_len == 6:
             print("hey")
             act_set = Activity.objects.filter(cat_1=act_code[:2], cat_2=act_code[2:4], cat_3=act_code[4:]).values_list(
