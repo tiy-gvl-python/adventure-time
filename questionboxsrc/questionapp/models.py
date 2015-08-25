@@ -15,12 +15,6 @@ class UserProfile(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
-    class Meta:
-        verbose_name = 'tag'
-        verbose_name_plural = 'tags'
-        ordering = ['name']
-
-    @property  # does this need to indent under Meta?
     def __str__(self):
         return self.name
 
@@ -29,7 +23,7 @@ class Question(models.Model):
     user = models.ForeignKey(UserProfile)
     title = models.CharField(max_length=80)
     question = models.TextField()
-    tag = models.ForeignKey(Tag)
+    tag = models.ForeignKey(Tag, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -40,12 +34,11 @@ class Answer(models.Model):
     user = models.ForeignKey(UserProfile)
     body = models.TextField()
     thread = models.ForeignKey(Question)
-    reply_rating = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return 'username: {}, reputation: {}'.format(self.user, self.reputation)
+        return 'username: {}'.format(self.user)
 
     class Meta:
         ordering = ["-timestamp"]
