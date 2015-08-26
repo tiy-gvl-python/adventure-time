@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-<!DOCTYPE html>
+
 <br>
 <head lang="en">
     <meta charset="UTF-8">
@@ -21,10 +21,18 @@
                 {% csrf_token %}
                 <input id="submit" type="submit" value="downvote">
 </form>
-{% endif %}
+{% endif %}<br />
+{% if question.pk %}
+
+
+<div class="container" align="center">
+<a href="{% url 'stack:answer_question' question.pk %}" >Answer Question</a>
+</div>
+    {% endif %}
 <h2>Answers are below</h2>
+
 {% for obj in answer %}
-    <div>Score: {{obj.score}} <br>Timestamp: {{obj.timestamp}}</br>User:
+    <div>Score: {{obj.score}} <br />Timestamp: {{obj.timestamp}}<br />User:
         {% if obj.user.user.pk %}
              <a href="{% url 'stack:Profile' obj.user.user.pk %}">
    {{obj.user.user.username}}</a>
@@ -39,7 +47,7 @@
         <input id="submit" type="submit" value="downvote"/>
     </form>
     {% endif %}
-     <br> </br> {{obj.text}}</div><br></br>
+     <br> </br> {{obj.text}}</div><br /><br />
 {% endfor %}
 
 
@@ -48,12 +56,7 @@
     </div>
 
 
-{% if question.pk %}
 
-
-
-<a href="{% url 'stack:answer_question' question.pk %}" >Answer Question</a>
-{% endif %}
 
 
 {% endblock %}
