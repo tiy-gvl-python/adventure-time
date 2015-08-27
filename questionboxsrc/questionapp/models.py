@@ -25,7 +25,7 @@ class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=80)
     question = models.TextField()
-    tag = models.ManyToManyField(Tag)
+    tag = models.ManyToManyField(Tag, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

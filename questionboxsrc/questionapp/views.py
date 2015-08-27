@@ -4,7 +4,8 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
+# from django.views.generic.edit import BaseCreateView
 from .models import Question, Answer, Tag
 
 
@@ -12,7 +13,7 @@ from .models import Question, Answer, Tag
 
 class QuestionCreateView(CreateView):
     model = Question
-    fields = ['title', 'question']
+    fields = ['title', 'question',]
     success_url = reverse_lazy('question_list')
 
 
@@ -25,9 +26,13 @@ class AnswerCreateView(CreateView):
     model = Answer
     fields = ['question', 'answer']
     success_url = reverse_lazy('question_list')
+    #template_name = 'question_detail.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        # get the question id off the form
+        # get type actual object
+        # form.instance.question = actual object
         return super().form_valid(form)
 
 

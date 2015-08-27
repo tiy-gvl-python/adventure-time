@@ -26,3 +26,16 @@
     </p>
 
 {% endblock %}
+
+{% comment %}
+    <p>
+        {% if user.username %}
+            <form method="post" action="{% url 'answer_form' %}">
+                {% csrf_token %}
+                <input type="hidden" name="original_question" value='{{ question.id }}'/>
+                <textarea name="note" class="form-control" placeholder="Answer this question"></textarea>
+                <button type="submit"><strong>Answer this question </strong></button>
+            </form>
+        {% endif %}
+    </p>
+{% endcomment %}
