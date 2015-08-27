@@ -3,7 +3,26 @@
 {% block content %}
     <p>
         <br/>
-        question detail
+            {{ "Asked by: "}} {{ question.user }} <br/>
+            {{ "Title:" }} {{ question.title }} <br/>
+            {{ "Question: "}} {{ question.question }} <br/>
+            {{ "Submitted: "}}{{ question.timestamp}} <br/>
+    </p>
+    <p>
+        <br/>
+            {% for answer in question.answer_set.all %} <br/>
+                time: {{ answer.timestamp }} <br/>
+                user: {{ answer.user  }} <br/>
+                answer: {{ answer.answer }} <br/>
+                _____________________
+            {% endfor %}
+    <p>
+        {% if user.username %}
+            <form action="{% url 'answer_form' %}">
+               <button type="submit" > Answer this question </button>
+            </form>
+        {% endif %}
+
     </p>
 
 {% endblock %}

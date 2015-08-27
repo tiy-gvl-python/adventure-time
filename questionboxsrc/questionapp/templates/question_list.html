@@ -2,9 +2,25 @@
 
 {% block content %}
     <p>
-        <br/>
-        Question list
+        <h1>Question List</h1>
+        {% if user.username %}
+            <form action="{% url 'question_form' %}">
+                <button type="submit" > Ask a new question </button>
+            </form>
+        {% endif %}
+
     </p>
+    <p>
+                {% for question in object_list %} <br/>
+                    <li class="list-group-item">
+                        <div>
+                            <a href="{% url "question_detail" question.id %}">
+                                {{ question.title }}
+                            </a><br/>
+                            Asked by: {{ question.user }} - {{ question.timestamp }}<br/>
+                        _____________________
 
+                    </li><br/>
+                {% endfor %}
+    </p>
 {% endblock %}
-

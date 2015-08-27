@@ -9,11 +9,12 @@
     </style>
     <nav class="navbar navbar-default" role="navigation">
        <div class="navbar-header">
-          {% if user.is_authenticated %}
+          <ul>
+           {% if user.is_authenticated %}
               <li><a href=/question_list/>Questions</a></li>
               <li><a>{{ user.username }} </a>is logged in</li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
+          {% else %}
               <li><a href=/accounts/login/>Login</a></li>
               <li><a href=/register/>Register</a></li>
           {% endif %}

@@ -14,31 +14,36 @@ class UserProfile(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    applies = models. BooleanField(default=False)
 
-    def __str__(self):
-        return self.name
+    def tag_it(self):
+        if self.applies == True:
+            return "{}".format(self.name)
 
 
 class Question(models.Model):
-    user = models.ForeignKey(UserProfile)
+    user = models.ForeignKey(User)
     title = models.CharField(max_length=80)
     question = models.TextField()
-    tag = models.ForeignKey(Tag, null=True)
+    tag = models.ManyToManyField(Tag)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return "{} {} | {} | {}".format(self.title, self.timestamp, self.question, self.user)
 
+    class Meta:
+        ordering = ["-timestamp"]
+
 
 class Answer(models.Model):
-    user = models.ForeignKey(UserProfile)
-    body = models.TextField()
-    thread = models.ForeignKey(Question)
+    user = models.ForeignKey(User)
+    answer = models.TextField()
+    question = models.ForeignKey(Question)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return 'username: {}'.format(self.user)
+        return '{}, {}, {}'.format(self.user, self.answer, self.question)
 
     class Meta:
         ordering = ["-timestamp"]
