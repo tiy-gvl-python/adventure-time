@@ -25,6 +25,7 @@ class Question(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=80)
     question = models.TextField()
+    reputation = models.IntegerField(default=0)
     tag = models.ManyToManyField(Tag, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -41,6 +42,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    reputation = models.IntegerField(default=0)
 
     def __str__(self):
         return '{}, {}, {}'.format(self.user, self.answer, self.question)

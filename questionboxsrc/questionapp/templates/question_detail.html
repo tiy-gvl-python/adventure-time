@@ -3,7 +3,7 @@
 {% block content %}
     <p>
         <br/>
-            {{ "Asked by: "}} {{ question.user }} <br/>
+            {{ "Asked by: "}} {{ question.user }} - Reputation: {{ user.reputation }} <br/>
             {{ "Title:" }} {{ question.title }} <br/>
             {{ "Question: "}} {{ question.question }} <br/>
             {{ "Submitted: "}}{{ question.timestamp}} <br/>
@@ -11,14 +11,14 @@
     <p>
         <br/>
             {% for answer in question.answer_set.all %} <br/>
+                Answered by: {{ answer.user  }} - Reputation: {{ user.reputation }}<br/>
+                Answer: {{ answer.answer }} <br/>
                 time: {{ answer.timestamp }} <br/>
-                user: {{ answer.user  }} <br/>
-                answer: {{ answer.answer }} <br/>
                 _____________________
             {% endfor %}
     <p>
         {% if user.username %}
-            <form action="{% url 'answer_form' %}">
+            <form action="{% url 'answer_form' question.id %}"> <br/>
                <button type="submit" > Answer this question </button>
             </form>
         {% endif %}

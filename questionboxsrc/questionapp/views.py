@@ -24,15 +24,17 @@ class QuestionCreateView(CreateView):
 
 class AnswerCreateView(CreateView):
     model = Answer
-    fields = ['question', 'answer']
+    fields = ['answer']
     success_url = reverse_lazy('question_list')
     #template_name = 'question_detail.html'
 
     def form_valid(self, form):
+        # print(self.kwargs)
+        question_pk = self.kwargs['pk']
+        # print(question_pk)
+        # Question.objects.get(id=question_pk)
         form.instance.user = self.request.user
-        # get the question id off the form
-        # get type actual object
-        # form.instance.question = actual object
+        form.instance.question = Question.objects.get(id=question_pk)
         return super().form_valid(form)
 
 
