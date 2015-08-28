@@ -7,14 +7,23 @@
             {{ "Title:" }} {{ question.title }} <br/>
             {{ "Question: "}} {{ question.question }} <br/>
             {{ "Submitted: "}}{{ question.timestamp}} <br/>
+                _____________________ <br/>
+                _____________________
     </p>
     <p>
-        <br/>
             {% for answer in question.answer_set.all %} <br/>
                 Answered by: {{ answer.user  }} - Reputation: {{ user.reputation }}<br/>
                 Answer: {{ answer.answer }} <br/>
+                    <form action="{% url 'upvote' %}">
+                        <button type="submit" value="up" > Upvote </button>
+                    <form/>
+                    <form action="{% url 'downvote' %}">
+                        <button type="submit" value="down"> Downvote </button> <br/>
+                    <form/>
                 time: {{ answer.timestamp }} <br/>
+                 <br/>
                 _____________________
+                 <br/>
             {% endfor %}
     <p>
         {% if user.username %}

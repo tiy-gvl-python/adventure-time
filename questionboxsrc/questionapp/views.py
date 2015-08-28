@@ -31,10 +31,12 @@ class AnswerCreateView(CreateView):
     def form_valid(self, form):
         # print(self.kwargs)
         question_pk = self.kwargs['pk']
+        # question_user =
         # print(question_pk)
         # Question.objects.get(id=question_pk)
         form.instance.user = self.request.user
         form.instance.question = Question.objects.get(id=question_pk)
+        #form.instance.question.user = Question.objects.get()
         return super().form_valid(form)
 
 
@@ -63,3 +65,19 @@ def user_questions(request):
     if request.user == user:
         question = user.question.all()
     return render_to_response('user_questions.html', context_instance=RequestContext(request))
+
+
+def upvote(request):
+    if request.method == 'POST':
+        Answer.user.userprofile.reputation += 10
+        print(Answer.user.userprofile.reputation)
+    return render_to_response('question_detail.html', context_instance=RequestContext(request))
+
+
+def downvote(request):
+    if request.method == 'POST':
+        Answer.user.userprofile.reputation -= 5
+        print(Answer.user.userprofile.reputation)
+        request.user.userprofile.reputation -= 1
+        print(Answer.user.userprofile.reputation)
+    return render_to_response('question_detail.html', context_instance=RequestContext(request))
