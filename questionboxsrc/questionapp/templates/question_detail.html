@@ -3,7 +3,7 @@
 {% block content %}
     <p>
         <br/>
-            {{ "Question asked by: "}} {{ question.user }} <br/>
+            {{ "Question asked by: "}} {{ question.user }} - rep: {{ question.user.userprofile.reputation }}<br/>
             {{ "Title:" }} {{ question.title }} <br/>
             {{ "Question: "}} {{ question.question }} <br/>
             {{ "Submitted: "}}{{ question.timestamp}} <br/>
@@ -15,17 +15,17 @@
                 Answered by: {{ answer.user  }} - rep: {{ answer.user.userprofile.reputation }}<br/>
                 on {{ answer.timestamp }} <br/><br/>
                 Answer: {{ answer.answer }}<br/><br/>
-                Votes: {{ answer.reputation }}<br/>
+                Votes for this answer: {{ answer.reputation }}<br/>
                     <form method="POST" action="{% url 'upvote' %}">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ answer.id }}" />
-                    <button type="submit" value="up" > Upvote </button>
+                    <button type="submit" name="vote" value="up" > Upvote </button>
                     </form>
 
                     <form method="POST" action="{% url 'downvote' %}">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ answer.id }}" />
-                    <button type="submit" value="down"> Downvote </button> <br/>
+                    <button type="submit" name="vote" value="down"> Downvote </button> <br/>
                     </form>
                 _____________________
                  <br/>
@@ -40,16 +40,3 @@
     </p>
 
 {% endblock %}
-
-{% comment %}
-    <p>
-        {% if user.username %}
-            <form method="post" action="{% url 'answer_form' %}">
-                {% csrf_token %}
-                <input type="hidden" name="original_question" value='{{ question.id }}'/>
-                <textarea name="note" class="form-control" placeholder="Answer this question"></textarea>
-                <button type="submit"><strong>Answer this question </strong></button>
-            </form>
-        {% endif %}
-    </p>
-{% endcomment %}

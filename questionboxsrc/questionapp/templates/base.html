@@ -4,7 +4,7 @@
           <ul>
            {% if user.is_authenticated %}
               <li><a href=/question_list/>Questions</a></li>
-              <li><a>Logged in: {{ user.username }} </a> - rep: {{ user.userprofile.reputation }}</li>
+              <li>Logged in: {{ user.username }} - rep: {{ user.userprofile.reputation }}</li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
               <li><a href=/accounts/login/>Login</a></li>
