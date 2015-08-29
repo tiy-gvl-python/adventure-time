@@ -1,18 +1,10 @@
-
 {% block nav_bar %}
-    <style>
-        {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <nav class="navbar navbar-default" role="navigation">
        <div class="navbar-header">
           <ul>
            {% if user.is_authenticated %}
               <li><a href=/question_list/>Questions</a></li>
-              <li><a>{{ user.username }} </a>is logged in</li>
+              <li><a>Logged in: {{ user.username }} </a> - rep: {{ user.userprofile.reputation }}</li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
               <li><a href=/accounts/login/>Login</a></li>

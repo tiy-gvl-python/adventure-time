@@ -2,11 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.shortcuts import render_to_response, redirect, get_object_or_404, HttpResponse
 from django.template import RequestContext
 from django.views.generic import ListView, DetailView, CreateView, FormView
 # from django.views.generic.edit import BaseCreateView
-from .models import Question, Answer, Tag
+from .models import Question, Answer, Tag, UserProfile
 
 
 # Create your views here.
@@ -26,7 +26,6 @@ class AnswerCreateView(CreateView):
     model = Answer
     fields = ['answer']
     success_url = reverse_lazy('question_list')
-    #template_name = 'question_detail.html'
 
     def form_valid(self, form):
         # print(self.kwargs)
@@ -36,7 +35,6 @@ class AnswerCreateView(CreateView):
         # Question.objects.get(id=question_pk)
         form.instance.user = self.request.user
         form.instance.question = Question.objects.get(id=question_pk)
-        #form.instance.question.user = Question.objects.get()
         return super().form_valid(form)
 
 
@@ -69,15 +67,25 @@ def user_questions(request):
 
 def upvote(request):
     if request.method == 'POST':
-        Answer.user.userprofile.reputation += 10
-        print(Answer.user.userprofile.reputation)
-    return render_to_response('question_detail.html', context_instance=RequestContext(request))
+        answerobject = Answer.objects.get(id=request.POST['next'])
+        answerobject.reputation += 1
+        answerobject.save()
+        # print('answerobject', answerobject.reputation)
+        answeruserprofile = UserProfile.objects.get(user=answerobject.user)
+        answeruserprofile.reputation += 10
+        answeruserprofile.save()
+        # print('answeruserprofile', answeruserprofile.reputation)
+        return redirect(reverse_lazy('question_detail', kwargs={'pk': answerobject.question.id}))
 
 
 def downvote(request):
     if request.method == 'POST':
-        Answer.user.userprofile.reputation -= 5
-        print(Answer.user.userprofile.reputation)
-        request.user.userprofile.reputation -= 1
-        print(Answer.user.userprofile.reputation)
-    return render_to_response('question_detail.html', context_instance=RequestContext(request))
+        answerobject = Answer.objects.get(id=request.POST['next'])
+        answerobject.reputation -= 1
+        answerobject.save()
+        # -
+        answeruserprofile = UserProfile.objects.get(user=answerobject.user)
+        answeruserprofile.reputation -= 5
+        answeruserprofile.save()
+        # -
+        return redirect(reverse_lazy('question_detail', kwargs={'pk': answerobject.question.id}))

@@ -3,7 +3,7 @@
 {% block content %}
     <p>
         <br/>
-            {{ "Asked by: "}} {{ question.user }} - Reputation: {{ user.reputation }} <br/>
+            {{ "Question asked by: "}} {{ question.user }} <br/>
             {{ "Title:" }} {{ question.title }} <br/>
             {{ "Question: "}} {{ question.question }} <br/>
             {{ "Submitted: "}}{{ question.timestamp}} <br/>
@@ -12,16 +12,21 @@
     </p>
     <p>
             {% for answer in question.answer_set.all %} <br/>
-                Answered by: {{ answer.user  }} - Reputation: {{ user.reputation }}<br/>
-                Answer: {{ answer.answer }} <br/>
-                    <form action="{% url 'upvote' %}">
-                        <button type="submit" value="up" > Upvote </button>
-                    <form/>
-                    <form action="{% url 'downvote' %}">
-                        <button type="submit" value="down"> Downvote </button> <br/>
-                    <form/>
-                time: {{ answer.timestamp }} <br/>
-                 <br/>
+                Answered by: {{ answer.user  }} - rep: {{ answer.user.userprofile.reputation }}<br/>
+                on {{ answer.timestamp }} <br/><br/>
+                Answer: {{ answer.answer }}<br/><br/>
+                Votes: {{ answer.reputation }}<br/>
+                    <form method="POST" action="{% url 'upvote' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ answer.id }}" />
+                    <button type="submit" value="up" > Upvote </button>
+                    </form>
+
+                    <form method="POST" action="{% url 'downvote' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ answer.id }}" />
+                    <button type="submit" value="down"> Downvote </button> <br/>
+                    </form>
                 _____________________
                  <br/>
             {% endfor %}

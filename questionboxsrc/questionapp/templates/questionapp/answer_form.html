@@ -3,11 +3,7 @@
 {% block content %}
     <p>
         <form method="POST">
-            <br/>
-            {{ question.id }}
-            <br/>
-            {{ question.question }}
-            <br/>
+            {{ user.reputation}}<br/>
             {% csrf_token %}
             {{ form }}
             <button type="submit"><strong>Answer</strong></button>
