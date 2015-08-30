@@ -12,7 +12,7 @@
     </p>
     <p>
             {% for answer in question.answer_set.all %} <br/>
-                Answered by: {{ answer.user  }} - rep: {{ answer.user.userprofile.reputation }}<br/>
+                Answered by: {{ answer.user }} - rep: {{ answer.user.userprofile.reputation }}<br/>
                 on {{ answer.timestamp }} <br/><br/>
                 Answer: {{ answer.answer }}<br/><br/>
                 Votes for this answer: {{ answer.reputation }}<br/>

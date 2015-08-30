@@ -7,13 +7,10 @@ from questionapp.views import QuestionDetailView, AnswerCreateView, QuestionList
                               upvote, downvote, user_detail
 
 urlpatterns = [
-    # url(r'^accounts/', include('django.contrib.auth.urls')),
-    # url(r'^question_detail/(?P<question_id>\d+)/$', QuestionDetailView.as_view(), name='question_detail'),
     url(r'^$', QuestionListView.as_view(), name='question_list'),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout_view, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^home/$', home, name='home'),
     url(r'^question_form/$', QuestionCreateView.as_view(), name='question_form'),
     url(r'^answer_form/$', AnswerCreateView.as_view(), name='answer_form'),
     url(r'^question_detail/(?P<pk>\d+)/$', QuestionDetailView.as_view(), name='question_detail'),

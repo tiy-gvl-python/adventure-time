@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Question, Answer, UserProfile
@@ -53,10 +52,6 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-'''
-def home(request):
-    return render_to_response('home.html', context_instance=RequestContext(request))
-'''
 
 def upvote(request):
     if request.method == 'POST':
@@ -85,6 +80,7 @@ def downvote(request):
 
 
 def user_detail(request):
-    if request.user == User:
-        question = user.question_set.all()
-    return render_to_response('user_detail.html', context_instance=RequestContext(request))
+    if request.user:
+        question = request.user.question_set.all()
+        uquestions = {'questions': question}
+    return render_to_response('user_detail.html', context=uquestions, context_instance=RequestContext(request))

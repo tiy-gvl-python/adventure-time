@@ -3,8 +3,9 @@
        <div class="navbar-header">
           <ul>
            {% if user.is_authenticated %}
-              <li><a href=/question_list/>Questions</a></li>
+              <li><a href=/question_list/>All questions</a></li>
               <li>Logged in: {{ user.username }} - rep: {{ user.userprofile.reputation }}</li>
+              <li><a href="{% url 'user_detail' %}">{{ user.username }} content</a></li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
               <li><a href=/accounts/login/>Login</a></li>
