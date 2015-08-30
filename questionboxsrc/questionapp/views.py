@@ -28,7 +28,7 @@ class AnswerCreateView(CreateView):
     success_url = reverse_lazy('question_list')
 
     def form_valid(self, form):
-        # print(self.kwargs)
+        print(self.kwargs)
         question_pk = self.kwargs['pk']
         # print(question_pk)
         # Question.objects.get(id=question_pk)
@@ -76,6 +76,7 @@ def downvote(request):
         answeruserprofile = UserProfile.objects.get(user=answerobject.user)
         answeruserprofile.reputation -= 5
         answeruserprofile.save()
+        print(reverse_lazy('question_detail', kwargs={'pk': answerobject.question.id}))
         return redirect(reverse_lazy('question_detail', kwargs={'pk': answerobject.question.id}))
 
 
