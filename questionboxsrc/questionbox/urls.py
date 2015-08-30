@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login
 from django.views.generic.edit import CreateView
-from questionapp.views import QuestionDetailView, AnswerCreateView, QuestionListView, QuestionCreateView, logout_view, upvote, downvote
-
+from questionapp.views import QuestionDetailView, AnswerCreateView, QuestionListView, QuestionCreateView, logout_view, \
+                              upvote, downvote, user_detail
 
 urlpatterns = [
     # url(r'^accounts/', include('django.contrib.auth.urls')),
@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^question_list/$', QuestionListView.as_view(), name='question_list'),
     url(r'^register/$', CreateView.as_view(template_name='register.html', form_class=UserCreationForm,
                                            success_url='/accounts/login/'), name='register'),
-    # url(r'^user_questions/$', user_questions, name='user_questions'),
+    url(r'^user_detail/$', user_detail, name='user_detail'),
     url(r'^upvote/$', upvote, name='upvote'),
     url(r'^downvote/$', downvote, name='downvote'),
 ]

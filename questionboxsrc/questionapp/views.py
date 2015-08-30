@@ -12,12 +12,14 @@ from .models import Question, Answer, UserProfile
 
 class QuestionCreateView(CreateView):
     model = Question
-    fields = ['title', 'question',]
+    fields = ['title', 'question']
     success_url = reverse_lazy('question_list')
-
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        up = UserProfile.objects.get(user=self.request.user)
+        up.reputation += 5
+        up.save()
         return super().form_valid(form)
 
 
@@ -54,12 +56,6 @@ def logout_view(request):
 '''
 def home(request):
     return render_to_response('home.html', context_instance=RequestContext(request))
-
-def user_questions(request):
-    user = get_object_or_404(User, username=User)
-    if request.user == user:
-        question = user.question.all()
-    return render_to_response('user_questions.html', context_instance=RequestContext(request))
 '''
 
 def upvote(request):
@@ -79,8 +75,16 @@ def downvote(request):
         answerobject = Answer.objects.get(id=request.POST['next'])
         answerobject.reputation -= 1
         answerobject.save()
-        # -
+        down = UserProfile.objects.get(user=request.user)
+        down.reputation -= 1
+        down.save()
         answeruserprofile = UserProfile.objects.get(user=answerobject.user)
         answeruserprofile.reputation -= 5
         answeruserprofile.save()
         return redirect(reverse_lazy('question_detail', kwargs={'pk': answerobject.question.id}))
+
+
+def user_detail(request):
+    if request.user == User:
+        question = user.question_set.all()
+    return render_to_response('user_detail.html', context_instance=RequestContext(request))
