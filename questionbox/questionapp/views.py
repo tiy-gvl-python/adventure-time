@@ -5,24 +5,28 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Question, Answer, UserProfile
-from rest_framework import generics, serializers
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import serializers
+
 
 # Create your views here.
 
-"""
+
 class QuestionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Question
+        field = 'question'
 
 
-class QuestionList(generics.ListCreateAPIView):
+class QuestionListAPIView(ListCreateAPIView):
+    model = Question
     queryset = Question.objects.all()
-    serializer_class = QuestionSerializer()
+    serializer_class = QuestionSerializer
 
 
-
-class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    pass"""
+class QuestionDetailAPIView(RetrieveUpdateDestroyAPIView):
+    model = Question
 
 
 class QuestionCreateView(CreateView):

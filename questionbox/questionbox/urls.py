@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login
 from django.views.generic.edit import CreateView
 from questionapp.views import QuestionDetailView, AnswerCreateView, QuestionListView, QuestionCreateView, logout_view, \
-                              upvote, downvote, user_detail#, QuestionList, QuestionDetail
+                              upvote, downvote, user_detail, QuestionListAPIView, QuestionDetailAPIView
 
 urlpatterns = [
     url(r'^$', QuestionListView.as_view(), name='question_list'),
@@ -22,6 +22,6 @@ urlpatterns = [
     url(r'^upvote/$', upvote, name='upvote'),
     url(r'^downvote/$', downvote, name='downvote'),
 
-    #url(r'/api/questions/$', QuestionList.as_view(), name='list'),
-    #url(r'/api/questions/(?P<pk>\d+)$', QuestionDetail.as_view(), name='retreive/'),
+    url(r'^/api/questions/$', QuestionListAPIView.as_view(), name='list'),
+    url(r'^/api/questions/(?P<pk>\d+)$', QuestionDetailAPIView.as_view(), name='retrieve'),
 ]
