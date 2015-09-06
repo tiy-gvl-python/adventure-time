@@ -4,7 +4,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
+.idea
+.direnv
 # C extensions
 *.so
 
@@ -66,5 +67,12 @@ target/
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+
+atusact_2014/
+atusresp_2014/
+atusrost_2014/
+atussum_2014/
+
+Untitled.ipynb
+.ipynb_checkpoints/
 

@@ -1,0 +1,1 @@
+web: gunicorn autus_api.wsgi --log-file -

@@ -1,0 +1,12 @@
+django-toolbelt
+pandas
+Django
+dj-database-url
+dj-static
+gunicorn
+psycopg2
+static
+djangorestframework
+markdown
+django-filter
+numpy
