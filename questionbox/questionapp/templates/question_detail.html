@@ -7,8 +7,14 @@
             {{ "Title:" }} {{ question.title }} <br/>
             {{ "Question: "}} {{ question.question }} <br/>
             {{ "Submitted: "}}{{ question.timestamp}} <br/>
-                _____________________ <br/>
-                _____________________
+    <p>
+        {% if user.username %}
+            <form action="{% url 'answer_form' question.id %}"> <br/>
+                <button type="submit" > Answer this question </button>
+            </form>
+        {% endif %}
+
+    </p>
     </p>
     <p>
             {% for answer in question.answer_set.all %} <br/>
@@ -30,13 +36,5 @@
                 _____________________
                  <br/>
             {% endfor %}
-    <p>
-        {% if user.username %}
-            <form action="{% url 'answer_form' question.id %}"> <br/>
-               <button type="submit" > Answer this question </button>
-            </form>
-        {% endif %}
-
-    </p>
 
 {% endblock %}

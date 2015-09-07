@@ -27,6 +27,8 @@ class QuestionListAPIView(ListCreateAPIView):
 
 class QuestionDetailAPIView(RetrieveUpdateDestroyAPIView):
     model = Question
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 
 class QuestionCreateView(CreateView):
@@ -105,3 +107,6 @@ def user_detail(request):
         question = request.user.question_set.all()
         uquestions = {'questions': question}
     return render_to_response('user_detail.html', context=uquestions, context_instance=RequestContext(request))
+
+def home(request):
+    return render_to_response('home.html', context_instance=RequestContext(request))
