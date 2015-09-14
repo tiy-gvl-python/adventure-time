@@ -17,7 +17,6 @@
                     <a href="{% url "question_detail" question.id %}">{{ question.title }}</a><br/>
                     Asked by: {{ question.user }} - rep: {{ question.user.userprofile.reputation }}<br/>
                     Created: {{ question.timestamp }} <br/>
-                    _____________________
                 </div>
             </li><br/>
         {% endfor %}
