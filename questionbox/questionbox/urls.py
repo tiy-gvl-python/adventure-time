@@ -4,7 +4,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login
 from django.views.generic.edit import CreateView
 from questionapp.views import QuestionDetailView, AnswerCreateView, QuestionListView, QuestionCreateView, logout_view, \
+<<<<<<< HEAD
                               upvote, downvote, user_detail, QuestionListAPIView, QuestionDetailAPIView, home
+=======
+                              upvote, downvote, user_detail, home
+>>>>>>> OnAWS
 
 urlpatterns = [
     url(r'^$', home, name='home'),

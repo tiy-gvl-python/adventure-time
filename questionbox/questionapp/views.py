@@ -108,5 +108,11 @@ def user_detail(request):
         uquestions = {'questions': question}
     return render_to_response('user_detail.html', context=uquestions, context_instance=RequestContext(request))
 
+<<<<<<< HEAD
 def home(request):
     return render_to_response('home.html', context_instance=RequestContext(request))
+=======
+
+def home(request):
+    return render_to_response('home.html', context_instance=RequestContext(request))
+>>>>>>> OnAWS
