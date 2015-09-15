@@ -1,8 +1,18 @@
 /*********************************************
-page:
+GENERAL
 *********************************************/
 
+div.container form {
+    background: #2b3e50;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
 
+#login {
+    padding-top: 20px;
+    background: #2b3e50;
+}
 
 
 /*********************************************
@@ -13,6 +23,9 @@ page: HOME
     text-align: center;
 }
 
-.jumbotron div {
-
+.jumbotron h3 {
+    text-align: center;
 }
+
+#homebutton {
+    margin-bottom: 10%;

@@ -5,7 +5,7 @@
         <h2>Question List</h2>
         {% if user.username %}
             <form action="{% url 'question_form' %}">
-                <button type="submit" > Ask a new question </button>
+                <button class="btn btn-primary btn-sm" type="submit" > Ask a new question </button>
             </form>
         {% endif %}
 
@@ -17,6 +17,7 @@
                     <a href="{% url "question_detail" question.id %}">{{ question.title }}</a><br/>
                     Asked by: {{ question.user }} - rep: {{ question.user.userprofile.reputation }}<br/>
                     Created: {{ question.timestamp }} <br/>
+                    <h4>Question: {{ question.question }}</h4>
                 </div>
             </li><br/>
         {% endfor %}
