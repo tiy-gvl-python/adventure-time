@@ -1,0 +1,40 @@
+/*********************************************
+GENERAL
+*********************************************/
+
+div.container form {
+    background: #2b3e50;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+#login {
+    padding-left: 3%;
+    padding-top: 3%;
+    background: #2b3e50;
+}
+
+#q {
+    max-width: 20%;
+    max-height: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+
+
+/*********************************************
+page: HOME
+*********************************************/
+
+.jumbotron h1 {
+    text-align: center;
+}
+
+.jumbotron h3 {
+    text-align: center;
+}
+
+#homebutton {
+    margin-bottom: 10%;
