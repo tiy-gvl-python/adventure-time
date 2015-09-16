@@ -2,10 +2,10 @@
 
 {% block content %}
     <form method="post">
-        <div class="container" style="background: #DCDAD7">
+        <div class="container">
             {% csrf_token %}
             {{ form.as_table }}
-            <button type="submit">Register</button>
+            <button class="btn-default" type="submit">Register</button>
             <input type="hidden" name="next" value="{% url 'login' %}" />
         <div>
     </form>

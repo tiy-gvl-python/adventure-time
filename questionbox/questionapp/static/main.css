@@ -12,7 +12,9 @@ div.container form {
 #login {
     padding-left: 3%;
     padding-top: 3%;
-    background: #2b3e50;
+    padding-bottom: 3%;
+    width: 390px;
+    background: #4e5d6c;
 }
 
 #q {
@@ -38,3 +40,8 @@ page: HOME
 
 #homebutton {
     margin-bottom: 10%;
+}
+
+.div_pad {
+    padding: 3%;
+}
