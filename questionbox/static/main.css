@@ -10,9 +10,20 @@ div.container form {
 }
 
 #login {
-    padding-top: 20px;
-    background: #2b3e50;
+    padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 390px;
+    background: #4e5d6c;
 }
+
+#q {
+    max-width: 20%;
+    max-height: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
 
 
 /*********************************************
@@ -29,3 +40,8 @@ page: HOME
 
 #homebutton {
     margin-bottom: 10%;
+}
+
+.div_pad {
+    padding: 3%;
+}
