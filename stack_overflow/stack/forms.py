@@ -17,10 +17,12 @@ class AnswerForm(forms.ModelForm):
         fields = ['text']
 
 class TagForm(forms.ModelForm):
+    tag = forms.CharField()
 
     class Meta:
         model = Tag
         fields = ['tag']
+
 
 
 

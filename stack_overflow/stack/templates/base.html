@@ -14,10 +14,12 @@
 </head>
 <br>
 <body>
+<div class="jumbotron">
 <div class="container" align="center">
+<div class="header">
 <h1>Stackoverflow Clone</h1>
     <a href="{% url 'stack:home' %}" >Home</a><br /><br />
-
+</div>
 {% if user.id %}
         <a href="{% url 'stack:AskQuestion' %}">Click here to ask a question</a><br></br>
 
@@ -29,9 +31,12 @@
     <a href="{% url 'stack:register' %}">Sign up</a><br /><br />
 {% endif %}<br />
 
+
 {% block body %}
 
 {% endblock %}
-</div>
+
+</div><!-- container -->
+</div><!-- jumbotron -->
 </body>
 </html>
