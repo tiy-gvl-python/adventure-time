@@ -56,7 +56,7 @@ class Answers(models.Model):
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=45) #length of longest english word
+    tag = models.CharField(max_length=45, blank=True) #length of longest english word
     timestamp = models.DateTimeField(auto_now_add=True)
     score = models.IntegerField(default=0)
 

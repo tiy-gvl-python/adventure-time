@@ -1,10 +1,12 @@
 import random
+
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
-from .forms import ProfileForm, AnswerForm, TagForm
+from .forms import ProfileForm, AnswerForm, TagForm, AskQuestionForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Question, Tag, Count, Vote, Answers
@@ -36,7 +38,14 @@ def user_registration(request):
                 profile = profile_form.save(commit=False)
                 profile.user = users
                 profile.save()
-                return redirect('stack:Login')
+                try:
+                    username = request.POST['username']
+                    password = request.POST['password1']
+                    user = authenticate(username=username, password=password)
+                    login(request, user)
+                    return redirect('stack:home')
+                except:
+                    return redirect('stack:Login')
             except:
                 return render_to_response("registration/create_user.html",
                                       {'u_form': UserCreationForm, 'p_form': ProfileForm},
@@ -116,14 +125,81 @@ class AskQuestion(CreateView):
         return super().dispatch(*args, **kwargs)
 
 
+class TagCreation(CreateView):
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy('stack:AskQuestion')
+    success_message = "Tag created succsefully"
+
+    def form_valid(self, form):
+        if Tag.objects.filter(tag=self.request.POST['tag']):
+            return HttpResponse("TAG ALREADY EXIST")
+        else:
+            return super(TagCreation, self).form_valid(form)
+
+@login_required(login_url='stack:Login')
+@user_passes_test(can_ask_func, login_url='stack:Q_denied')
+def ask_question(request):
+    context = {}
+    ok = True
+    print('UNDER TRUE')
+    ask_form = AskQuestionForm(request.POST)
+    tag_form = TagForm(request.POST)
+    context['ask_form'] = ask_form
+    context['tag_form'] = tag_form
+    print("B")
+    if not ask_form.is_valid():
+        print("Ba")
+        ok = False
+    if ok:
+        print('Bam')
+        if tag_form.is_valid():
+            print('Here')
+            question = ask_form.save()
+            print('1')
+            try:
+                tag = tag_form.save(commit=False)
+                print('2')
+                if Tag.objects.all().filter(tag=tag.tag):
+                    print('3')
+                    tag = Tag.objects.all().get(tag=tag.tag)
+                    print('4')
+                else:
+                    print('5')
+                    tag = tag_form.save(commit=True)
+                    print('6')
+                question.tags.add(tag)
+                print('7')
+                question.save(commit=True)
+                print('8')
+                return redirect("question_page", question.pk)
+            except:
+                print('There')
+                try:
+                    question = ask_form.save()
+                    return redirect("question_page", question.pk)
+                except:
+                    return render_to_response('stack/answer_question_func.html',
+                                                context,
+                                                context_instance=RequestContext(request))
+        else:
+            try:
+                question = ask_form.save()
+                return redirect("question_page", question.pk)
+            except:
+                return render_to_response('stack/answer_question_func.html',
+                                            context,
+                                              context_instance=RequestContext(request))
+    return render_to_response('stack/answer_question_func.html',
+                                            context,
+                                              context_instance=RequestContext(request))
+
+
 @login_required(login_url='stack:Login')
 @user_passes_test(can_answer_func, login_url='stack:A_denied')
 def answer_question(request, question_id):
     if request.POST:
         user_id = request.user.id
-       # user_id = User.objects.get(id=user_id)
-        print('got user_id')
-        print(user_id)
         question = Question.objects.get(pk=question_id)
         print('Question: {}'.format(question))
         usr = request.user
@@ -153,17 +229,7 @@ def answer_question(request, question_id):
                                           {'answer_form': AnswerForm},
                                           context_instance=RequestContext(request))
 
-class TagCreation(CreateView):
-    model = Tag
-    form_class = TagForm
-    success_url = reverse_lazy('stack:AskQuestion')
-    success_message = "Tag created succsefully"
 
-    def form_valid(self, form):
-        if Tag.objects.filter(tag=self.request.POST['tag']):
-            return HttpResponse("TAG ALREADY EXIST")
-        else:
-            return super(TagCreation, self).form_valid(form)
 
 
 def vote_create(request, votee_pk, model_type, vote_type='upvote'):

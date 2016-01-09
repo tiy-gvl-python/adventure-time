@@ -17,11 +17,35 @@ class AnswerForm(forms.ModelForm):
         fields = ['text']
 
 class TagForm(forms.ModelForm):
-    tag = forms.CharField()
 
     class Meta:
         model = Tag
         fields = ['tag']
+
+class AskQuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = Question
+        fields = ['title', 'text']
+
+    def form_valid(self, form):
+        current_user = Profile.objects.get(pk=self.request.user.id)
+        x = current_user
+        x.score += 5
+        x.save()
+        form.instance.user = current_user
+        return super(AskQuestion, self).form_valid(form)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
