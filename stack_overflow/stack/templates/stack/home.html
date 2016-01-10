@@ -2,6 +2,21 @@
 
 {% block body %}
 {% if user.id %}
+    <div class="well">
+    <p>One of the requirements for this project was to implement a "reputation"(point)
+        based permission system.
+        Initially you can increase your reputation points by voting on questions and answers.
+        Once you hit 25 points you can ask questions and also earn points by having users like
+        your question.
+        Once you hit 125 points you can
+    </p>
+
+    <a href="{% url 'stack:add_125_points' %}">
+        <a href="{% url 'stack:add_25_points' %}"><button>Add 25 Points To Ask a Question</button></a>
+            <h3>Or</h3>
+        <a href="{% url 'stack:add_125_points' %}" ><button>Add 125 Points For Full Access To All the Sites Features</button></a>
+
+        </div>
     <a href="{% url 'stack:Profile' user.id %}"><button>Your Profile</button></a>
 {% endif %}<br></br>
 <a href="{% url 'stack:ListOfUsers' %}"><button>Users</button></a>

@@ -230,8 +230,6 @@ def answer_question(request, question_id):
                                           context_instance=RequestContext(request))
 
 
-
-
 def vote_create(request, votee_pk, model_type, vote_type='upvote'):
     print('here') # separate this out into more than one function so that
     if model_type == 'answer':
@@ -295,3 +293,21 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
         return redirect('stack:question_page', question_id=x_var)
     else:
        return redirect('stack:question_page', question_id=x_var)
+
+@login_required(login_url='stack:Login')
+def add_25_points(request):
+    user_pk = request.user.pk
+    profile = Profile.objects.get(pk=user_pk)
+    profile.score = profile.score + 25
+    profile.save()
+    return redirect('stack:home')
+
+
+@login_required(login_url='stack:Login')
+def add_125_points(request):
+    user_pk = request.user.pk
+    profile = Profile.objects.get(pk=user_pk)
+    profile.score = profile.score + 125
+    profile.save()
+    return redirect('stack:home')
+

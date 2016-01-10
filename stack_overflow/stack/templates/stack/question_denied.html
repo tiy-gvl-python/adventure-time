@@ -15,6 +15,15 @@
   <p>...</p>
 
     <h2></h2>
+    <div class="container">
+    <p>One of the requirements of this project was to implement a reputation based
+        system.  The higher a users score is, the more reputation that user has.
+        A higher rep allows a user to ask and answer questions.
+        For demonstration purposes I have added the below button to add
+        25 points to your score, allowing you to ask questions.
+    </p>
+    <a href="{% url 'stack:add_25_points' %}"><button>Add 25 Points To Ask a Question</button></a>
+    </div>
 </div>
 </body>
 {% endblock %}
