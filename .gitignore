@@ -1,5 +1,14 @@
-# Created by https://www.gitignore.io
+venv 
+.idea/ 
+.idea* 
+__pycache__* 
+*__pycache__*
 
+*.pyc
+staticfiles
+ 
+*.pyc# Created by https://www.gitignore.io
+staticfiles
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -67,4 +76,5 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+
 

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h3>{{profile.user.username}}'s Score:</h3><p>{{ profile.score }}</p>
+
+<h2>List of Questions asked by {{profile.user.username}}</h2>
+{% for question in questions %}
+    <div><a href="{% url 'stack:question_page' question.pk %}">{{ question.title}}</a>
+        Score: {{ question.score }}<br></br>
+
+
+    </div>
+{% endfor %}
+{% endblock %}

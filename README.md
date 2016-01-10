@@ -1,6 +1,6 @@
 # Week 8 Weekend Lab
 
-Working as a team, choose one of the following assignments and complete
+Working as a team or alonem, choose one of the following assignments and complete
 it:
 
 * [Question Box (standard web app)](question_box.md)
@@ -21,3 +21,5 @@ working in a team, much like you will be for the final project.
 * You should complete at least the normal mode for your assignment.
 * Your assignment should be deployed to Heroku. Put the URL where it is
 deployed in your pull request.
+
+Deployed at https://stackoverflow-clone-lance.herokuapp.com/

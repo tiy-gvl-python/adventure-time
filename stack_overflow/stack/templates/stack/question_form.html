@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+
+{% block body %}
+
+<body>
+<a href="{% url 'stack:TagCreation' %}">Cant Find Your Tag?</a>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Ask Question</button>
+
+</form>
+
+{% endblock %}
+
+</body>
+
+</html>

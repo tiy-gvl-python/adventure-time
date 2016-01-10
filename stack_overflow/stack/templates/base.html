@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<br>
+<body style="background-color: #99bbff">
+<div class="jumbotron">
+<div class="container" align="center">
+<div class="header">
+<h1>Stackoverflow Clone</h1>
+    <h3><a href="{% url 'stack:home' %}" ><button>Home</button></a></h3>
+</div>
+{% if user.id %}
+        <a  href="{% url 'stack:AskQuestion' %}"><button>Click here to ask a question</button></a><br>
+
+    <h3>Welcome {{ user.username }}</h3><br />
+    <a href="{% url 'stack:Logout' %}"><button>Logout</button></a><br />
+    {% csrf_token %}
+{% else %}
+    <a href="{% url 'stack:Login' %}"><button>Login</button></a><br />
+    <a href="{% url 'stack:register' %}"><button>Sign up</button></a><br /><br />
+{% endif %}<br />
+
+
+{% block body %}
+
+{% endblock %}
+
+</div><!-- container -->
+</div><!-- jumbotron -->
+</body>
+</html>

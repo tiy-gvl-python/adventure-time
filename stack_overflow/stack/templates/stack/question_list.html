@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+{% block body %}
+
+    <h1>Think Your Question Has Already Been Asked?</h1>
+    <h1>Look Below at Our List of Questions</h1>
+{% for question in object_list %}
+    <div><a href="{% url 'stack:question_page' question.id %}" >{{ question.title }}</a> Score: {{ question.score }}
+</div>
+{% endfor %}
+
+
+
+
+{% endblock %}
+</body>
+
+</html>
