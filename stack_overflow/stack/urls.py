@@ -3,7 +3,7 @@ from django.contrib.auth.views import login, logout
 from django.views.generic import CreateView
 from .views import user_registration, home, ListOfUsers, user_profile, ListOfQuestions, permission_denied, \
     AskQuestion, question_page, answer_question, TagCreation, vote_create, q_denied, ask_question, add_25_points, \
-    add_125_points
+    add_125_points, add_25_points_2
 
 SLUG = '(?P<slug>[\w\d-]+)'
 
@@ -26,6 +26,7 @@ urlpatterns = [
         vote_create, name='vote_create'),
     url(r'ask-question/', ask_question, name='ask_question'),
     url(r'add-25/$', add_25_points, name='add_25_points'),
+    url(r'add-25-2/$', add_25_points_2, name='add_25_points_2'),
     url(r'add-125/$', add_125_points, name='add_125_points'),
 
 ]

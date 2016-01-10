@@ -294,6 +294,7 @@ def vote_create(request, votee_pk, model_type, vote_type='upvote'):
     else:
        return redirect('stack:question_page', question_id=x_var)
 
+
 @login_required(login_url='stack:Login')
 def add_25_points(request):
     user_pk = request.user.pk
@@ -301,6 +302,15 @@ def add_25_points(request):
     profile.score = profile.score + 25
     profile.save()
     return redirect('stack:home')
+
+
+@login_required(login_url='stack:Login')
+def add_25_points_2(request):
+    user_pk = request.user.pk
+    profile = Profile.objects.get(pk=user_pk)
+    profile.score = profile.score + 25
+    profile.save()
+    return redirect('stack:AskQuestion')
 
 
 @login_required(login_url='stack:Login')
