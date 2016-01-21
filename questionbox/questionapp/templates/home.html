@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block nav_bar %}
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1><strong> QuestionBox </strong></h1>
+        <h3>
+            <li>A Question and Answer site where users receive Reputation for asking and answering questions. </br>
+                </li>
+            <li>Answers can be voted Up or Down giving more credibility to the answer and Reputation to the user. </br>
+                </li>
+            <li>Be careful as a Down vote will cost you a point too.
+                </li>
+        </h3>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'question_list' %}">
+                        <img id="q" source src="static/black_qmark.png" alt="QuestionBox Logo"></a>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <img id="q" source src="static/black_qmark.png" alt="QuestionBox Logo"></a>
+                {% endif %}
+    </div>
+{% endblock %}

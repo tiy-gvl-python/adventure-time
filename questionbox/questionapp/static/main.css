@@ -1,0 +1,46 @@
+/*********************************************
+GENERAL
+*********************************************/
+
+div.container form {
+    background: #2b3e50;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+#login {
+    padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    width: 390px;
+    background: #4e5d6c;
+}
+
+#q {
+    max-width: 20%;
+    max-height: 20%;
+    margin: 0 auto;
+    display: block;
+}
+
+
+/*********************************************
+page: HOME
+*********************************************/
+
+.jumbotron h1 {
+    text-align: center;
+}
+
+.jumbotron h3 {
+    text-align: center;
+}
+
+#homebutton {
+    margin-bottom: 10%;
+}
+
+.div_pad {
+    padding: 3%;
+}

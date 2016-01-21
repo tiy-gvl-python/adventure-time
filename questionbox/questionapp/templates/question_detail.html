@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="div_pad">
+        <p>
+            <br/>
+                {{ "Question asked by: "}} {{ question.user }} - rep: {{ question.user.userprofile.reputation }}<br/>
+                <h4>{{ "Title:" }} {{ question.title }} <br/>
+                {{ "Question: "}} {{ question.question }}</h4> <br/>
+                {{ "Submitted: "}}{{ question.timestamp}} <br/>
+        </p>
+        <p>
+            {% if user.username %}
+                <form action="{% url 'answer_form' question.id %}"> <br/>
+                   <button class="btn btn-default btn-sm" type="submit" > Answer this question </button>
+                </form>
+            {% endif %}
+                    _____________________ <br/>
+
+        </p>
+        <p>
+                {% for answer in question.answer_set.all %} <br/>
+                    Answered by: {{ answer.user }} - rep: {{ answer.user.userprofile.reputation }}<br/>
+                    on {{ answer.timestamp }} <br/><br/>
+                    <h4>Answer: {{ answer.answer }}<br/><br/></h4>
+                    Votes for this answer: {{ answer.reputation }}<br/>
+                        <form method="POST" action="{% url 'upvote' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ answer.id }}" />
+                        <button class="btn btn-success btn-sm" type="submit" name="vote" value="up" > Upvote </button>
+                        </form>
+
+                        <form method="POST" action="{% url 'downvote' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ answer.id }}" />
+                        <button class="btn btn-danger btn-sm" type="submit" name="vote" value="down"> Downvote </button> <br/>
+                        </form>
+                    _____________________
+                     <br/>
+            {% endfor %}
+        </p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="container">
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+                <table>
+                    {{ form }}
+                </table>
+
+                <input type="submit" value="login" />
+                <input type="hidden" name="next" value='{% url "question_list" %}' />
+
+            </form>
+        <div>
+
+    <div id="login">
+    To view existing data, login with the following </br>
+        credentials or feel free to create your own login ID.</br>
+    <strong>Username: Jeff</strong></br>
+    <strong>Password: Jeff</strong>
+    </div>
+{% endblock %}
